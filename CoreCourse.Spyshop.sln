@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCourse.Spyshop.Web", "CoreCourse.Spyshop.Web\CoreCourse.Spyshop.Web.csproj", "{E2B93DED-CEEB-4822-AC57-6038733774FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCourse.Spyshop.Domain", "CoreCourse.Spyshop.Domain\CoreCourse.Spyshop.Domain.csproj", "{F079A517-8DF9-4DD2-A3D5-05F86EED879E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{E2B93DED-CEEB-4822-AC57-6038733774FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2B93DED-CEEB-4822-AC57-6038733774FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2B93DED-CEEB-4822-AC57-6038733774FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F079A517-8DF9-4DD2-A3D5-05F86EED879E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F079A517-8DF9-4DD2-A3D5-05F86EED879E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F079A517-8DF9-4DD2-A3D5-05F86EED879E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F079A517-8DF9-4DD2-A3D5-05F86EED879E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
