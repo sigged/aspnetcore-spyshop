@@ -30,16 +30,20 @@ namespace CoreCourse.Spyshop.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
-
+            
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                        name: "searchByKeyRoute",
+                        template: "Home/SearchByKey/{searchkey}",
+                        defaults: new { Controller = "Home", action = "SearchByKey" }
+                    );
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}"
-                );
+                    );
             });
 
         }
