@@ -25,6 +25,9 @@ namespace CoreCourse.Spyshop.Web
                 //Middleware #1: Has an exception occurred? Show detailed error message.
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles();
+
             //Middleware #2: show "Spy Shop" for URL /spyshop
             app.Use(async (context, next) => {
                 //check Request URL Path
