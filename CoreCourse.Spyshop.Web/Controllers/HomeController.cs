@@ -9,6 +9,11 @@ namespace CoreCourse.Spyshop.Web.Controllers
             return View();
         }
 
+        public IActionResult Error()
+        {
+            return View();
+        }
+
         public IActionResult Search(string searchkey)
         {
             return View(); //todo: create a view named "Search" under Views/Home
