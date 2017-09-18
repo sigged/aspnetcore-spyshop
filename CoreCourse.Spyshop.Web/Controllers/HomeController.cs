@@ -6,7 +6,7 @@ namespace CoreCourse.Spyshop.Web.Controllers
     {
         public IActionResult Index()
         {
-            return Content("Hello Mvc!");
+            return View();
         }
     }
 }
