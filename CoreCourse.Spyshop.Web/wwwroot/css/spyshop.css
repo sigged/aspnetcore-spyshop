@@ -1,0 +1,132 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+    border: none;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    background-color: #fbf9ef;
+}
+
+#container {
+    float: left;
+}
+
+#header h1 {
+    font-size: 28px;
+    font-family: 'Segoe UI', Tahoma, Sans-Serif;
+    letter-spacing: 2px;
+    word-spacing: 5px;
+    float: left;
+    font-variant: small-caps;
+    padding: 45px 0px 5px 10px;
+}
+
+@media (min-width: 768px) {
+    #header .navbar-nav {
+        margin-top: 30px;
+    }
+}
+
+#header .navbar-brand {
+    height: 80px;
+    width: 290px;
+    background: url(../images/spyshop.png) no-repeat;
+    background-size: contain;
+    padding: 50px 0 5px 105px;
+    font-size: 30px;
+    font-family: 'Segoe UI';
+    font-variant: small-caps;
+    color: #ff7f00;
+    text-shadow: 1px 2px #964c02;
+}
+
+#header .navbar-default {
+    border: none;
+    margin-bottom:0;
+    border-bottom: 1px dotted rgba(255, 127, 0, 0.70) !important;
+    background-color: transparent;
+}
+
+#header .navbar-default {
+    border: none;
+    background-color: transparent;
+}
+
+    #header .navbar-default .navbar-toggle {
+        border-color: rgba(255, 127, 0, 0.70);
+    }
+
+        #header .navbar-default .navbar-toggle:hover,
+        #header .navbar-default .navbar-toggle:focus {
+            background-color: rgba(255, 127, 0, 0.70);
+        }
+
+            #header .navbar-default .navbar-toggle:hover .icon-bar,
+            #header .navbar-default .navbar-toggle:focus .icon-bar {
+                background-color: #fbf9ef;
+            }
+
+    #header .navbar-default li.active a {
+        background-color: rgba(255, 127, 0, 0.70);
+        color: #fff;
+    }
+
+#topnav {
+    margin-bottom:20px;
+}
+
+.cart-badge {
+    vertical-align: top;
+    background-color: rgba(255, 127, 0, 0.70);
+}
+
+
+ul {
+    list-style-type: square;
+    margin-left: 25px;
+    font-size: 14px;
+}
+
+
+#update-message {
+    color: #ff7f00;
+    font-weight: bold;
+}
+
+.button, input[type=submit] {
+    clear: both;
+    display: inline-block;
+    padding: 5px;
+    margin-top: 10px;
+    border: 1px;
+    background: #5e5b54;
+    color: #fff;
+    font-weight: bold;
+}
+
+    .button a {
+        color: #fff !important;
+    }
+
+#footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    border-top: 1px dotted #8A8575;
+    border-bottom: 1px dotted #8A8575;
+    background-color: #efefef;
+    overflow: hidden;
+}
+
+    #footer .footer-left {
+        text-align: center;
+    }
+
+    #footer .footer-right {
+        text-align: right;
+    }

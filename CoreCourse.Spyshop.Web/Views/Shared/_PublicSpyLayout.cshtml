@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/spyshop.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container-fluid">
+        <header id="header">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed"
+                                data-toggle="collapse" data-target="#spynav">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Spy Shop</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="spynav">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="/">Start</a></li>
+                            <li><a href="/">Products</a></li>
+                            <li><a href="/">About</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                                    Cart <span class="badge cart-badge">0</span>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                   role="button" aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    Guest <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/">Log in</a></li>
+                                    <li><a href="/">Register</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        </header>
+        <main>
+            <aside id="topnav">
+                @RenderSection("topsection", false)
+            </aside>
+            <section id="maincontent">
+                @RenderBody()
+
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.
+                Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
+                Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.
+                Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.
+                Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.
+            </section>
+        </main>
+        <footer id="footer">
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    <form>
+                        <div class="form-group form-inline">
+                            <input type="text" class="form-control" placeholder="Search">
+                            <button type="submit" class="btn btn-default">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-12 text-center">
+                    &copy; @DateTime.Now.Year Spy Shop Example Site
+                </div>
+
+            </div>
+        </footer>
+    </div>
+    <script src="~/scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/bootstrap/js/bootstrap.js"></script>
+</body>
+</html>
