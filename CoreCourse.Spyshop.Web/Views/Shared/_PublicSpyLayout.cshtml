@@ -7,7 +7,6 @@
     <environment names="Production, Staging">
         <link rel="stylesheet"
                 asp-append-version="true"
-               
                 asp-href-include="~/bootstrap/css/*.min.css"
                 asp-href-exclude="~/bootstrap/css/*-theme*.css" />
     </environment>
@@ -38,9 +37,10 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="spynav">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a asp-action="Index" asp-controller="Home">Start</a></li>
+                            @*<li class="active"><a asp-action="Index" asp-controller="Home">Start</a></li>
                             <li><a asp-action="Index" asp-controller="Catalog">Products</a></li>
-                            <li><a asp-action="Index" asp-controller="About">About</a></li>
+                            <li><a asp-action="Index" asp-controller="About">About</a></li>*@
+                            @await Component.InvokeAsync("MainNavigation")
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li>
