@@ -45,7 +45,7 @@ body {
 
 #header .navbar-default {
     border: none;
-    margin-bottom:0;
+    margin-bottom: 0;
     border-bottom: 1px dotted rgba(255, 127, 0, 0.70) !important;
     background-color: transparent;
 }
@@ -74,9 +74,33 @@ body {
         color: #fff;
     }
 
-#topnav {
-    margin-bottom:20px;
+.mainsection {
+    position: absolute;
 }
+
+.sale-flag {
+    display:none;
+}
+
+    .sale-flag a {
+        position: absolute;
+        top:80px;
+        right: 5%;
+        z-index:1;
+        display: block;
+        width: 61px;
+        height: 75px;
+        background-image: url('../images/seasonsale.png');
+        background-repeat:no-repeat;
+        background-size:cover;
+    }
+
+@media (min-width: 768px) {
+    .sale-flag {
+        display: block;
+    }
+}
+
 
 .cart-badge {
     vertical-align: top;

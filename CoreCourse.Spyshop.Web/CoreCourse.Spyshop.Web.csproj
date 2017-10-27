@@ -17,8 +17,4 @@
     <ProjectReference Include="..\CoreCourse.Spyshop.Domain\CoreCourse.Spyshop.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\images\" />
-  </ItemGroup>
-
 </Project>
