@@ -1,0 +1,136 @@
+﻿
+.product-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+    .product-grid li {
+        margin-left: 0;
+        width: 100%;
+        height: 200px;
+    }
+
+    .product-grid article,
+    .product-grid article > a {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 10px 20px 10px 0;
+    }
+
+    .product-grid article > a:hover{
+        text-decoration:none;
+    }
+
+        .product-grid article > a .product-img {
+            width: 50%;
+            height: 75%;
+            position: absolute;
+            top:25%;
+            background-image: url('../images/default-product.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        .product-grid article > a .product-title {
+            width: 100%;
+            height: 25%;
+            padding: 10px;
+            background-color: #ff7f00;
+            position: absolute;
+            top: 0;
+            z-index: 2;
+            text-align: center;
+            font-size: large;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .product-grid article > a .product-price {
+            width: 50%;
+            height: 15%;
+            padding: 5px;
+            color: #fff !important;
+            background: linear-gradient(-45deg, rgb(254, 163, 71) 0%, rgb(254, 163, 71) 44%, rgba(255, 255, 255, 0) 44%);
+            position: absolute;
+            bottom: 0;
+            z-index: 1;
+            text-align: right;
+            font-size: medium;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .product-grid article > a .product-desc {
+            width: 50%;
+            height: 75%;
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            z-index: 1;
+            padding: 10px 18px;
+            line-height: 1.8em;
+            background-color: rgba(245, 238, 221, 0.90);
+            color: #222;
+            border-bottom: 2px solid #ff7f00;
+            overflow: hidden;
+        }
+
+@media (min-width: 500px){
+
+    .product-grid {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+        .product-grid li {
+            width: 200px;
+            margin: 10px 20px 10px 0;
+        }
+
+            .product-grid article > a {
+                text-decoration: none;
+                
+                overflow-y: hidden;
+            }
+
+                .product-grid article > a .product-img {
+                    width: 100%;
+                    position: static;
+                }
+
+                .product-grid article > a .product-price {
+                    width: 100%;
+                    color: #ff8000 !important;
+                    background: linear-gradient(45deg, rgba(255, 255, 255, 0) 56%, rgba(255, 255, 255, 0.5) 56%, rgba(255, 255, 255, 0.5) 100%);
+                    top: 0;
+                    font-weight: bold;
+                }
+
+                .product-grid article > a .product-title {
+                    position: relative;
+                    top: 0;
+                    left: 0;
+                }
+
+                .product-grid article > a .product-desc {
+                    width: 100%;
+                    top: 75%;
+                    left:0;
+                    background: linear-gradient(45deg, rgba(245,238,221,0.90) 40%, rgba(245,238,221,0.75) 70%, rgba(245,238,221,0.25) 100%);
+                    transition: top ease-out 0.25s;
+                    border-top: 2px solid #fea347;
+                }
+
+                .product-grid article > a:hover .product-desc {
+                    top: 15%;
+                }
+
+}
