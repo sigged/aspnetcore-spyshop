@@ -216,6 +216,54 @@ table.cart input[type=submit] {
     white-space: nowrap;
 }
 
+div.successdiv,
+div.errordiv {
+    clear: both;
+    margin: 10px 0;
+    padding: 10px;
+    box-shadow: rgba(195, 194, 190, 0.40) 2px 2px;
+    border-radius: 5px;
+}
+
+    div.successdiv:before,
+    div.errordiv:before {
+        font-size: x-large;
+        float: left;
+        position: relative;
+        top: -20px;
+        left: -16px;
+        display: inline-block;
+        font-family: 'Glyphicons Halflings';
+    }
+
+div.successdiv {
+    border: 2px solid #26ad0b;
+    background-color: #f2f6e3;
+}
+
+    div.successdiv:before {
+        color: #1a8b04;
+        top: -22px;
+        content: "\e013";
+    }
+
+
+div.errordiv {
+    border: 2px solid #ad290b;
+    color: #ad290b;
+    background-color: #fbf3ea;
+}
+    div.errordiv:before {
+        color: #ad290b;
+        content: "\e101"
+    }
+
+    div.errordiv ul {
+        margin: 0;
+        padding-left:25px;
+    }
+
+
 /* Bootstrap overrides */
 .table-striped > tbody > tr:nth-of-type(odd) {
     background-color: #f3f0e2;
