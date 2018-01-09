@@ -10,22 +10,35 @@ namespace CoreCourse.Spyshop.Web.Components
     [ViewComponent(Name = "MainNavigation")]
     public class MainNavComponent : ViewComponent
     {
-        private IEnumerable<MainNavLinkVm> navLinks { get; set; }
+        private IEnumerable<MainNavLinkVm> PublicLinks { get; set; }
+        private IEnumerable<MainNavLinkVm> AdminLinks { get; set; }
 
         public MainNavComponent()
         {
-            navLinks = new List<MainNavLinkVm>
+            PublicLinks = new List<MainNavLinkVm>
             {
-                new MainNavLinkVm{ Controller="Home", Action="Index", Text="Start"},
-                new MainNavLinkVm{ Controller="Catalog", Action="Index", Text="Products"},
-                new MainNavLinkVm{ Controller="About", Action="Index", Text="About"},
+                new MainNavLinkVm{ Area=null, Controller="Home", Action="Index", Text="Start"},
+                new MainNavLinkVm{ Area=null, Controller="Catalog", Action="Index", Text="Products"},
+                new MainNavLinkVm{ Area=null, Controller="About", Action="Index", Text="About"},
+            };
+
+            AdminLinks = new List<MainNavLinkVm>
+            {
+                new MainNavLinkVm{ Area="Admin", Controller="Home", Action="Index", Text="Dashboard"},
+                new MainNavLinkVm{ Area="Admin", Controller="Categories", Action="Index", Text="Categories"},
+                new MainNavLinkVm{ Area="Admin", Controller="Products", Action="Index", Text="Products"},
             };
         }
 
-        public Task<IViewComponentResult> InvokeAsync()
+        public Task<IViewComponentResult> InvokeAsync(bool showAdmin)
         {
+            var navLinks = PublicLinks;
+            if (showAdmin) navLinks = AdminLinks;
+
             foreach (var navlink in navLinks) {
-                if (this.RouteData.Values["controller"]?.ToString().ToLower() == navlink.Controller.ToLower() 
+                if (this.RouteData.Values["area"]?.ToString().ToLower() == navlink.Area?.ToLower()
+                    &&
+                    this.RouteData.Values["controller"]?.ToString().ToLower() == navlink.Controller.ToLower() 
                     &&
                     this.RouteData.Values["action"]?.ToString().ToLower() == navlink.Action.ToLower())
                 {
