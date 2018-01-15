@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using CoreCourse.Spyshop.Domain.Settings;
+using CoreCourse.Spyshop.Web.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreCourse.Spyshop.Web
 {
@@ -33,6 +35,10 @@ namespace CoreCourse.Spyshop.Web
         {
             services.AddOptions();
             services.Configure<SpyShopConfig>(configuration.GetSection("SpyShopConfig"));
+
+            services.AddDbContext<SpyShopContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("SpyShopDb")));
+    
             services.AddMvc();
         }
 
