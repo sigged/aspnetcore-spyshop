@@ -18,19 +18,27 @@
     <section>
         <header><h3>@cat.Name</h3></header>
         <ul class="product-grid">
-            @foreach (var product in cat.Products)
+        @foreach (var product in cat.Products
+            .OrderBy(p => p.SortNumber ?? int.MaxValue) //NULL sortnumbers come last
+            .ThenBy(p => p.Name)
+            )
+        {
+            string productImageCss = null;
+            if (product.PhotoUrl != null)
             {
-                <li>
-                    <article>
-                        <a asp-action="Product">
-                            <section class="product-img"></section>
-                            <section class="product-price">@product.Price.ToString("C2")</section>
-                            <section class="product-title">@product.Name</section>
-                            <section class="product-desc">@product.Description</section>
-                        </a>
-                    </article>
-                </li>
+                productImageCss =  $"background-image:url('../images/products/{product.PhotoUrl}')";
             }
+            <li>
+                <article>
+                    <a asp-action="Product">
+                        <section class="product-img" style="@productImageCss"></section>
+                        <section class="product-price">@product.Price.ToString("C2")</section>
+                        <section class="product-title">@product.Name</section>
+                        <section class="product-desc">@product.Description</section>
+                    </a>
+                </article>
+            </li>
+        }
         </ul>
     </section>
 }
