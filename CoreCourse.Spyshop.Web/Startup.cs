@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CoreCourse.Spyshop.Domain.Settings;
+using CoreCourse.Spyshop.Web.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using CoreCourse.Spyshop.Domain.Settings;
-using CoreCourse.Spyshop.Web.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreCourse.Spyshop.Web
 {
@@ -26,9 +21,7 @@ namespace CoreCourse.Spyshop.Web
                 .AddEnvironmentVariables();
             configuration = builder.Build();
         }
-
-
-
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -49,6 +42,15 @@ namespace CoreCourse.Spyshop.Web
             {
                 //Middleware #1: Has an exception occurred? Show detailed error message.
                 app.UseDeveloperExceptionPage();
+
+                //create a scope with which to get the DbContext service (yuck!)
+                using (var serviceScope = app.ApplicationServices
+                                                .GetRequiredService<IServiceScopeFactory>()
+                                                .CreateScope())
+                {
+                    var context = serviceScope.ServiceProvider.GetService<SpyShopContext>(); //get DbContext
+                    DataSeeder.Seed(context);
+                }
             }
             else
             {
@@ -65,9 +67,9 @@ namespace CoreCourse.Spyshop.Web
                 );
 
                 routes.MapRoute(
-                   name: "searchByIdRoute",
-                   template: "Search/{id:long}",
-                   defaults: new { Controller = "Home", action = "SearchById" }
+                    name: "searchByIdRoute",
+                    template: "Search/{id:long}",
+                    defaults: new { Controller = "Home", action = "SearchById" }
                 );
                 routes.MapRoute(
                     name: "searchByKeyRoute",

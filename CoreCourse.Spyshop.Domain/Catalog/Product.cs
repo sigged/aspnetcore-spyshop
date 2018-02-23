@@ -14,6 +14,10 @@ namespace CoreCourse.Spyshop.Domain.Catalog
 
         public decimal Price { get; set; }
 
+        public string PhotoUrl { get; set; }
+
+        public int? SortNumber { get; set; }
+
         public Category Category { get; set; }
     }
 }
