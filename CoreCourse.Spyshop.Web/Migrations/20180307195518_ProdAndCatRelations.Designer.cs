@@ -11,9 +11,10 @@ using System;
 namespace CoreCourse.Spyshop.Web.Migrations
 {
     [DbContext(typeof(SpyShopContext))]
-    partial class SpyShopContextModelSnapshot : ModelSnapshot
+    [Migration("20180307195518_ProdAndCatRelations")]
+    partial class ProdAndCatRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
