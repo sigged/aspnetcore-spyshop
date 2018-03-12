@@ -1,4 +1,5 @@
 ﻿using CoreCourse.Spyshop.Domain.Catalog;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,8 +15,9 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.ViewModels
 
         public decimal Price { get; set; }
 
-        [MaxLength(250)]
         public string PhotoUrl { get; set; }
+
+        public IFormFile UploadedImage { get; set; }
 
         public int? SortNumber { get; set; }
 
