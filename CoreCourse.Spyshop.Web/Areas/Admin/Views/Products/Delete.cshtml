@@ -1,4 +1,4 @@
-﻿@model CoreCourse.Spyshop.Domain.Catalog.Product
+﻿@model CoreCourse.Spyshop.Web.Areas.Admin.ViewModels.ProductsDetailsVm
 
 @{
     ViewData["Title"] = "Delete";
@@ -41,8 +41,14 @@
         <dd>
             @Html.DisplayFor(model => model.SortNumber)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-default" /> |

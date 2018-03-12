@@ -38,13 +38,26 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
             }
 
             var product = await _context.Products
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .Include(e => e.Category)
+                .SingleOrDefaultAsync(e => e.Id == id);
+
             if (product == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            var viewModel = new ProductsDetailsVm
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                PhotoUrl = product.PhotoUrl,
+                Price = product.Price,
+                SortNumber = product.SortNumber,
+                CategoryName = product.Category.Name
+            };
+
+            return View(viewModel);
         }
 
         // GET: Admin/Products/Create
@@ -63,7 +76,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ProductsEditVm createVm)
+        public async Task<IActionResult> Create(ProductsCreateVm createVm)
         {
             if (ModelState.IsValid)
             {
@@ -179,19 +192,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         // GET: Admin/Products/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Products
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return View(product);
+            return await Details(id);
         }
 
         // POST: Admin/Products/Delete/5

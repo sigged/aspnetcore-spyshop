@@ -1,4 +1,4 @@
-﻿@model CoreCourse.Spyshop.Domain.Catalog.Product
+﻿@model CoreCourse.Spyshop.Web.Areas.Admin.ViewModels.ProductsDetailsVm
 
 @{
     ViewData["Title"] = "Details";
@@ -39,6 +39,12 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.SortNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
         </dd>
     </dl>
 </div>
