@@ -41,11 +41,11 @@
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <div class="col-md-10">
-                    <p>Upload a new image for this product:</p>
-                    <input type="file" asp-for="UploadedImage" class="form-control" />
+                <label asp-for="UploadedImage">Upload a new image for this product</label>
+                <input type="file" asp-for="UploadedImage" />
+                <p>
                     <span asp-validation-for="UploadedImage" class="text-danger"></span>
-                </div>
+                </p>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
