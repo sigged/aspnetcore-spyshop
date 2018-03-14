@@ -80,13 +80,18 @@
             @Html.Partial("PublicFooter")
         </div>
     </div>
-    <script src="~/scripts/jquery-3.2.1.min.js"></script>
     <environment names="Production, Staging">
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
         <script asp-append-version="true"
                 asp-src-include="~/bootstrap/js/*.min.js"
                 asp-src-exclude="~/bootstrap/js/npm.js"></script>
     </environment>
     <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
         <script asp-append-version="true"
                 asp-src-include="~/bootstrap/js/*.js"
                 asp-src-exclude="~/bootstrap/js/*.min.js, ~/bootstrap/js/npm.js"></script>
