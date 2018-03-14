@@ -34,7 +34,7 @@
                         <section class="product-img" style="@productImageCss"></section>
                         <section class="product-price">@product.Price.ToString("C2")</section>
                         <section class="product-title">@product.Name</section>
-                        <section class="product-desc">@product.Description</section>
+                        <section class="product-desc">@Html.Raw(product.Description?.Replace("\n","<br />"))</section>
                     </a>
                 </article>
             </li>

@@ -11,6 +11,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.ViewModels
         [MaxLength(50)]
         public string Name { get; set; }
 
+        [MaxLength(5000)]
         public string Description { get; set; }
 
         public decimal Price { get; set; }
@@ -19,6 +20,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.ViewModels
 
         public IFormFile UploadedImage { get; set; }
 
+        [Display(Name = "Sort Number")]
         public int? SortNumber { get; set; }
 
         [Display(Name = "Category")]
