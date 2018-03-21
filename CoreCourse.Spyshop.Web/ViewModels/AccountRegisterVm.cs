@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoreCourse.Spyshop.Web.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -32,13 +33,11 @@ namespace CoreCourse.Spyshop.Web.ViewModels
         public string RepeatPassword { get; set; }
 
         [Display(Name = "Date of birth")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime BirthDate { get; set; }
 
         [Display(Name = "I have read and agree to the license terms")]
-        [Range(typeof(bool), "true", "true", 
-            ErrorMessage = "You must read and accept the license terms to register")]
+        [MustBeTrue(ErrorMessage = "You must read and accept the license terms to register")]
         public bool AgreeToLicense { get; set; }
     }
     
