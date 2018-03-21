@@ -1,24 +1,31 @@
 ﻿using CoreCourse.Spyshop.Domain.Settings;
 using CoreCourse.Spyshop.Web.Data;
+using CoreCourse.Spyshop.Web.Globalization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace CoreCourse.Spyshop.Web
 {
     public class Startup
     {
         IConfigurationRoot configuration = null;
+        IHostingEnvironment env = null;
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IHostingEnvironment environment)
         {
+            env = environment;
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+
             configuration = builder.Build();
         }
         
@@ -31,7 +38,17 @@ namespace CoreCourse.Spyshop.Web
 
             services.AddDbContext<SpyShopContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("SpyShopDb")));
-    
+
+            //Configure request localization
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var globalizationService = new GlobalizationService(env);
+                var supportedCultures = globalizationService.GetSupportedCldrLocales();
+                options.DefaultRequestCulture = new RequestCulture(globalizationService.GetFallbackCulture());
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+
             services.AddMvc();
         }
 
@@ -58,6 +75,10 @@ namespace CoreCourse.Spyshop.Web
             }
 
             app.UseStaticFiles();
+
+            //enable Request Locatization Middleware
+            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(locOptions.Value);
 
             app.UseMvc(routes =>
             {

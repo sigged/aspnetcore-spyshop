@@ -1,3 +1,7 @@
 {
-  "directory": "wwwroot/lib"
+  "directory": "wwwroot/lib",
+  "scripts": {
+    "preinstall": "npm install cldr-data-downloader@0.2.x",
+    "postinstall": "node ./node_modules/cldr-data-downloader/bin/download.js -i wwwroot/lib/cldr-data/index.json -o wwwroot/lib/cldr-data/"
+  }
 }
