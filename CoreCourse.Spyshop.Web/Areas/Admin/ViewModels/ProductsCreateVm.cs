@@ -1,4 +1,5 @@
 ﻿using CoreCourse.Spyshop.Domain.Catalog;
+using CoreCourse.Spyshop.Web.Validation;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,6 +19,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.ViewModels
 
         public string PhotoUrl { get; set; }
 
+        [UploadedImage(maxLength: 500)]
         public IFormFile UploadedImage { get; set; }
 
         [Display(Name = "Sort Number")]
