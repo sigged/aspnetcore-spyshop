@@ -33,7 +33,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" asp-action="Index" asp-controller="Home">Spy Shop</a>
+                            <a class="navbar-brand" asp-action="Index" asp-controller="Home" asp-area="">Spy Shop</a>
                         </div>
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -43,7 +43,7 @@
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
-                                    <a asp-action="Index" asp-controller="Cart">
+                                    <a asp-action="Index" asp-controller="Cart" asp-area="">
                                         <span class="glyphicon glyphicon-shopping-cart"></span>
                                         Cart <span class="badge cart-badge">0</span>
                                     </a>
@@ -55,8 +55,8 @@
                                         Guest <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a asp-action="Login" asp-controller="Account">Log in</a></li>
-                                        <li><a asp-action="Register" asp-controller="Account">Register</a></li>
+                                        <li><a asp-action="Login" asp-controller="Account" asp-area="">Log in</a></li>
+                                        <li><a asp-action="Register" asp-controller="Account" asp-area="">Register</a></li>
                                     </ul>
                                 </li>
                             </ul>
