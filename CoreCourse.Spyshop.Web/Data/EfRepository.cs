@@ -1,48 +1,48 @@
 ﻿using CoreCourse.Spyshop.Domain;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CoreCourse.Spyshop.Web.Data
 {
-    public class EfRepository<T,TKey> 
+    public class EfRepository<T,TKey> : IRepository<T, TKey>
         where T : BaseEntity<TKey>
     {
-        private readonly SpyShopContext _dbContext;
+        protected readonly SpyShopContext _dbContext;
 
         public EfRepository(SpyShopContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public T GetById(TKey id)
+        public async Task<T> GetByIdAsync(TKey id)
         {
-            return _dbContext.Set<T>().SingleOrDefault(e => e.Id.Equals(id));
+            return await _dbContext.Set<T>().SingleOrDefaultAsync(e => e.Id.Equals(id));
         }
 
-        public List<T> List()
+        public IQueryable<T> GetAll()
         {
-            return _dbContext.Set<T>().ToList();
+            return _dbContext.Set<T>();
         }
 
-        public T Add(T entity)
+        public async Task<T> AddAsync(T entity)
         {
             _dbContext.Set<T>().Add(entity);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return entity;
         }
 
-        public void Delete(T entity)
+        public async Task DeleteAsync(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
-        public void Update(T entity)
+        public async Task UpdateAsync(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
