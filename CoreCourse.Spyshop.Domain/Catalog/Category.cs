@@ -4,10 +4,8 @@ using System.Text;
 
 namespace CoreCourse.Spyshop.Domain.Catalog
 {
-    public class Category
+    public class Category : BaseEntity<long>
     {
-        public long Id { get; set; }
-
         public string Name { get; set; }
 
         public ICollection<Product> Products { get; set; }
