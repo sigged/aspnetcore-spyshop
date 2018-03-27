@@ -20,15 +20,15 @@
         margin: 10px 20px 10px 0;
     }
 
-    .product-grid article > a:hover{
-        text-decoration:none;
-    }
+        .product-grid article > a:hover {
+            text-decoration: none;
+        }
 
         .product-grid article > a .product-img {
             width: 50%;
             height: 75%;
             position: absolute;
-            top:25%;
+            top: 25%;
             background-image: url('../images/default-product.png');
             background-size: cover;
             background-repeat: no-repeat;
@@ -37,7 +37,7 @@
         }
 
         .product-grid article > a:hover .product-img {
-            opacity:0.25;
+            opacity: 0.25;
         }
 
         .product-grid article > a .product-title {
@@ -88,7 +88,38 @@
             overflow: hidden;
         }
 
-@media (min-width: 500px){
+
+.details-buy {
+    margin-top: 40px;
+}
+
+.details-price {
+    font-size: 40pt;
+    line-height: 34pt;
+    color: #ff7f00;
+    margin-top: 20px;
+}
+
+.details-addtocart {
+    margin: 0 20px;
+}
+
+.details-img {
+    width: 100%;
+    box-shadow: 6px 6px 2px -1px rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 500px) {
+    .details-price, .details-addtocart {
+        float:right;
+    }
+    .details-price{
+        margin-top:0;
+    }
+}
+
+
+@media (min-width: 500px) {
 
     .product-grid {
         display: flex;
@@ -100,42 +131,40 @@
             margin: 10px 20px 10px 0;
         }
 
-            .product-grid article > a {
-                text-decoration: none;
-                
-                overflow-y: hidden;
+        .product-grid article > a {
+            text-decoration: none;
+            overflow-y: hidden;
+        }
+
+            .product-grid article > a .product-img {
+                width: 100%;
+                position: static;
             }
 
-                .product-grid article > a .product-img {
-                    width: 100%;
-                    position: static;
-                }
+            .product-grid article > a .product-price {
+                width: 100%;
+                color: #ff8000 !important;
+                background: linear-gradient(45deg, rgba(255, 255, 255, 0) 56%, rgba(255, 255, 255, 0.5) 56%, rgba(255, 255, 255, 0.5) 100%);
+                top: 0;
+                font-weight: bold;
+            }
 
-                .product-grid article > a .product-price {
-                    width: 100%;
-                    color: #ff8000 !important;
-                    background: linear-gradient(45deg, rgba(255, 255, 255, 0) 56%, rgba(255, 255, 255, 0.5) 56%, rgba(255, 255, 255, 0.5) 100%);
-                    top: 0;
-                    font-weight: bold;
-                }
+            .product-grid article > a .product-title {
+                position: relative;
+                top: 0;
+                left: 0;
+            }
 
-                .product-grid article > a .product-title {
-                    position: relative;
-                    top: 0;
-                    left: 0;
-                }
+            .product-grid article > a .product-desc {
+                width: 100%;
+                top: 75%;
+                left: 0;
+                background: linear-gradient(45deg, rgba(245,238,221,0.90) 40%, rgba(245,238,221,0.75) 70%, rgba(245,238,221,0.25) 100%);
+                transition: top ease-out 0.25s;
+                border-top: 2px solid #fea347;
+            }
 
-                .product-grid article > a .product-desc {
-                    width: 100%;
-                    top: 75%;
-                    left:0;
-                    background: linear-gradient(45deg, rgba(245,238,221,0.90) 40%, rgba(245,238,221,0.75) 70%, rgba(245,238,221,0.25) 100%);
-                    transition: top ease-out 0.25s;
-                    border-top: 2px solid #fea347;
-                }
-
-                .product-grid article > a:hover .product-desc {
-                    top: 15%;
-                }
-
+            .product-grid article > a:hover .product-desc {
+                top: 15%;
+            }
 }

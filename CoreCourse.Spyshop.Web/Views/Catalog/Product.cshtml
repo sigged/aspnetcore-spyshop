@@ -1,0 +1,38 @@
+﻿@model CoreCourse.Spyshop.Web.ViewModels.CatalogProductVm
+@{
+    ViewBag.Title = $"{Model.Product.Name} - Spyshop";
+}
+
+@section head {
+    <link href="~/css/products.css" rel="stylesheet" type="text/css" />
+}
+
+<h1>Product Details</h1>
+<p>
+    <a asp-action="Index">&laquo;&nbsp;back to catalog</a>
+</p>
+<article class="row">
+    <div class="col-sm-4 text-right">
+        @{ 
+            string defaultImg = "default-product.png";
+            if (Model.Product.PhotoUrl != null)
+            {
+                defaultImg = $"products/{Model.Product.PhotoUrl}";
+            }
+        }
+        
+        <img src="~/images/@defaultImg" alt="@Model.Product.Name" class="details-img" />
+    </div>
+    <section class="col-sm-8">
+        <header>
+            <h3>@Model.Product.Name</h3>
+        </header>
+        <p><big>@Html.Raw(Model.Product.Description)</big></p>
+        <div class="clearfix details-buy">
+            <form asp-action="#" class="details-addtocart">
+                <button type="submit" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Buy now</button>
+            </form>
+            <div class="details-price">€ @Model.Product.Price.ToString("N2")</div>
+        </div>
+    </section>
+</article>

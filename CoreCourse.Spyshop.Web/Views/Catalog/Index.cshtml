@@ -30,8 +30,8 @@
             }
             <li>
                 <article>
-                    <a asp-action="Product">
-                        <section class="product-img" style="@productImageCss"></section>
+                    <a asp-action="Product" asp-route-id="@product.Id" asp-route-name="@product.Name">
+                        <section class="product-img" style="@Html.Raw(productImageCss)"></section>
                         <section class="product-price">@product.Price.ToString("C2")</section>
                         <section class="product-title">@product.Name</section>
                         <section class="product-desc">@Html.Raw(product.Description?.Replace("\n","<br />"))</section>
