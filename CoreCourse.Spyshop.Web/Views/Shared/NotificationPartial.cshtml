@@ -1,0 +1,8 @@
+﻿@using CoreCourse.Spyshop.Web;
+
+@if (TempData.ContainsKey(Constants.SuccessMessage))
+{
+    <div class="successdiv">
+        @Html.Raw(TempData[Constants.SuccessMessage])
+    </div>
+}

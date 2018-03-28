@@ -57,7 +57,9 @@ namespace CoreCourse.Spyshop.Web.Controllers
             if (ModelState.IsValid)
             {
                 //todo: register user account
-
+                //set tempdata 
+                TempData[Constants.SuccessMessage] = $@"Welcome, <b>{viewmodel.UserName}</b>.<br />
+                    Your account has been registered succesfully. You may now log in.";
                 return new RedirectToActionResult("Index", "Home", null);   //redirect to homepage on succesful registration.
             }
             else
