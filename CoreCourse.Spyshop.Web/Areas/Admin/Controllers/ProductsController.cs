@@ -110,6 +110,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                     }
 
                     await _pRepository.AddAsync(createdProduct);
+                    TempData[Constants.SuccessMessage] = $"Product \"{createdProduct.Name}\" has been created";
                     return RedirectToAction(nameof(Index));
                 }
                 else
@@ -182,7 +183,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                             DeleteProductImage(updatedProduct);
                             updatedProduct.PhotoUrl = await SaveProductImage(editVm.UploadedImage);
                         }
-
+                        TempData[Constants.SuccessMessage] = $"Product \"{updatedProduct.Name}\" has been updated";
                         await _pRepository.UpdateAsync(updatedProduct);
                     }
                     else
@@ -223,6 +224,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
             DeleteProductImage(product);
 
             await _pRepository.DeleteAsync(product);
+            TempData[Constants.SuccessMessage] = $"Product \"{product.Name}\" has been deleted";
             return RedirectToAction(nameof(Index));
         }
 
