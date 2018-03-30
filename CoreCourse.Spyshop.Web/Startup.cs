@@ -1,8 +1,10 @@
 ﻿using CoreCourse.Spyshop.Domain;
 using CoreCourse.Spyshop.Domain.Catalog;
 using CoreCourse.Spyshop.Domain.Settings;
+using CoreCourse.Spyshop.Domain.Shopping;
 using CoreCourse.Spyshop.Web.Data;
 using CoreCourse.Spyshop.Web.Globalization;
+using CoreCourse.Spyshop.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
@@ -43,6 +45,7 @@ namespace CoreCourse.Spyshop.Web
 
             services.AddTransient<IRepository<Product, long>, EfRepository<Product, long>>();
             services.AddTransient<IRepository<Category, long>, EfRepository<Category, long>>();
+            services.AddTransient<ICartService,CookieCartService>();
 
             //Configure request localization
             services.Configure<RequestLocalizationOptions>(options =>

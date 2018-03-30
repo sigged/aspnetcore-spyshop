@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CoreCourse.Spyshop.Domain.Catalog
+﻿namespace CoreCourse.Spyshop.Domain.Catalog
 {
     public class Product : BaseEntity<long>
     {
