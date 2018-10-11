@@ -15,6 +15,7 @@ namespace CoreCourse.Spyshop.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -28,26 +29,7 @@ namespace CoreCourse.Spyshop.Web
 
             app.UseStaticFiles();
 
-            //Middleware #2: show "Spy Shop" for URL /spyshop
-            app.Use(async (context, next) => {
-                //check Request URL Path
-                if (context.Request.Path == "/spyshop")
-                {
-                    await context.Response.WriteAsync("Spy Shop");
-                }
-                else
-                {
-                    //ONLY pass request to the next Middleware if Request URL path something else
-                    await next.Invoke();
-                }
-            });
-
-            //Middleware #3: in all other cases, show "Hello World"
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
-            
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
