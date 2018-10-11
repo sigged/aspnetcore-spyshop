@@ -1,6 +1,0 @@
-﻿@model IEnumerable<CoreCourse.Spyshop.Web.ViewModels.Components.MainNavLinkVm>
-
-@foreach (var navlink in Model)
-{
-    <li@(Html.Raw(navlink.IsActive ? " class=\"active\"" : ""))><a asp-action="@navlink.Action" asp-controller="@navlink.Controller" asp-area="@navlink.Area">@navlink.Text</a></li>
-}
