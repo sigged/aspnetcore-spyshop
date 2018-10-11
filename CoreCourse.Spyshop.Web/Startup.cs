@@ -23,8 +23,11 @@ namespace CoreCourse.Spyshop.Web
         {
             if (env.IsDevelopment())
             {
-                //Middleware #1: Has an exception occurred? Show detailed error message.
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
             }
 
             app.UseStaticFiles();
