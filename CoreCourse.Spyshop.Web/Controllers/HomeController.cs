@@ -6,7 +6,13 @@ namespace CoreCourse.Spyshop.Web.Controllers
     {
         public IActionResult Index()
         {
-            return Content("Hello Mvc!");
+            return View();
         }
+
+        public IActionResult Search(string searchkey)
+        {
+            return View();  //todo: create a view named “Search” under Views/Home
+        }
+
     }
 }
