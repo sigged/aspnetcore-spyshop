@@ -14,9 +14,18 @@ namespace CoreCourse.Spyshop.Web.Controllers
             return View();
         }
 
-        public IActionResult Search(string searchkey)
+        public IActionResult SearchByKey(string searchkey)
         {
-            return View();  //todo: create a view named “Search” under Views/Home
+            ViewData["SearchMethod"] = "Text";
+            ViewData["SearchSubject"] = searchkey;
+            return View("SearchResults");
+        }
+
+        public IActionResult SearchById(long id)
+        {
+            ViewData["SearchMethod"] = "Numerical ID";
+            ViewData["SearchSubject"] = id;
+            return View("SearchResults");
         }
 
     }
