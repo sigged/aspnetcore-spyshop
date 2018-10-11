@@ -22,13 +22,24 @@ namespace CoreCourse.Spyshop.Web
         {
             if (env.IsDevelopment())
             {
+                //Middleware #1: Has an exception occurred? Show detailed error message.
                 app.UseDeveloperExceptionPage();
             }
-
+            //Middleware #2: show "Spy Shop" for URL /spyshop
+            app.Use(async (context, next) => {
+                //check Request URL Path
+                if (context.Request.Path == "/spyshop")
+                    await context.Response.WriteAsync("Spy Shop!");
+                //pass request to the next Middleware
+                await next.Invoke();
+            });
+            
+            //Middleware #3: in all other cases, show "Hello World"
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");
             });
+            
         }
     }
 }
