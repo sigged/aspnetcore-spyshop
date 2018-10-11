@@ -35,8 +35,13 @@ namespace CoreCourse.Spyshop.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "searchByIdRoute",
+                    template: "Search/{id:long}",
+                    defaults: new { Controller = "Home", action = "SearchById" }
+                );
+                routes.MapRoute(
                     name: "searchByKeyRoute",
-                    template: "Home/SearchByKey/{searchkey}",
+                    template: "Search/{searchkey}",
                     defaults: new { Controller = "Home", action = "SearchByKey" }
                 );
                 routes.MapRoute(
