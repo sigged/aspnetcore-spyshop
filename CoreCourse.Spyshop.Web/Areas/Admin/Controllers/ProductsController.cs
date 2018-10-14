@@ -38,13 +38,25 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
             }
 
             var product = await _context.Products
+                .Include(e => e.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            var viewModel = new ProductsDetailsVm
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                PhotoUrl = product.PhotoUrl,
+                Price = product.Price,
+                SortNumber = product.SortNumber,
+                CategoryName = product.Category.Name
+            };
+
+            return View(viewModel);
         }
 
         // GET: Admin/Products/Create
@@ -177,19 +189,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         // GET: Admin/Products/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return View(product);
+            return await Details(id);
         }
 
         // POST: Admin/Products/Delete/5
