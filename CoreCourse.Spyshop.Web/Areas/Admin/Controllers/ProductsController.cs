@@ -54,6 +54,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
             {
                 Price = 0
             };
+            viewModel.AvailableCategories = _context.Categories.OrderBy(e => e.Name);
             return View(viewModel);
         }
 
@@ -64,18 +65,28 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                Product createdProduct = new Product
+                Category category = _context.Categories.Find(createVm.CategoryId.Value);
+
+                if (category != null) {
+                    Product createdProduct = new Product
+                    {
+                        Name = createVm.Name,
+                        Description = createVm.Description,
+                        Price = createVm.Price,
+                        PhotoUrl = createVm.PhotoUrl,
+                        SortNumber = createVm.SortNumber,
+                        Category = category
+                    };
+                    _context.Add(createdProduct);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
                 {
-                    Name = createVm.Name,
-                    Description = createVm.Description,
-                    Price = createVm.Price,
-                    PhotoUrl = createVm.PhotoUrl,
-                    SortNumber = createVm.SortNumber
-                };
-                _context.Add(createdProduct);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    ModelState.AddModelError(nameof(createVm.CategoryId), "This category doesn't exist");
+                }
             }
+            createVm.AvailableCategories = _context.Categories.OrderBy(e => e.Name);
             return View(createVm);
         }
 
@@ -86,7 +97,10 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var product = await _context.Products.SingleOrDefaultAsync(m => m.Id == id);
+            var product = await _context.Products
+                .Include(e => e.Category)
+                .SingleOrDefaultAsync(m => m.Id == id);
+
             if (product == null)
             {
                 return NotFound();
@@ -98,7 +112,9 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                 Description = product.Description,
                 PhotoUrl = product.PhotoUrl,
                 Price = product.Price,
-                SortNumber = product.SortNumber
+                SortNumber = product.SortNumber,
+                CategoryId = product.Category.Id,
+                AvailableCategories = _context.Categories.OrderBy(e => e.Name)
             };
 
             return View(viewModel);
@@ -118,17 +134,27 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
             {
                 try
                 {
-                    Product updatedProduct = new Product
+                    Category category = _context.Categories.Find(editVm.CategoryId.Value);
+
+                    if(category != null)
                     {
-                        Id = editVm.Id,
-                        Name = editVm.Name,
-                        Description = editVm.Description,
-                        Price = editVm.Price,
-                        PhotoUrl = editVm.PhotoUrl,
-                        SortNumber = editVm.SortNumber
-                    };
-                    _context.Update(updatedProduct);
-                    await _context.SaveChangesAsync();
+                        Product updatedProduct = new Product
+                        {
+                            Id = editVm.Id,
+                            Name = editVm.Name,
+                            Description = editVm.Description,
+                            Price = editVm.Price,
+                            PhotoUrl = editVm.PhotoUrl,
+                            SortNumber = editVm.SortNumber,
+                            Category = category
+                        };
+                        _context.Update(updatedProduct);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(nameof(editVm.CategoryId), "This category doesn't exist");
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -143,6 +169,8 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            editVm.AvailableCategories = _context.Categories.OrderBy(e => e.Name);
             return View(editVm);
         }
 

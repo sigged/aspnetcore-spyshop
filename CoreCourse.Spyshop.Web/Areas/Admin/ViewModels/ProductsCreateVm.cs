@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CoreCourse.Spyshop.Domain.Catalog;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CoreCourse.Spyshop.Web.Areas.Admin.ViewModels
 {
@@ -16,5 +18,12 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.ViewModels
         public string PhotoUrl { get; set; }
 
         public int? SortNumber { get; set; }
+
+        [Display(Name = "Category")]
+        [Required(ErrorMessage = "Please pick a category", AllowEmptyStrings = false)]
+        public long? CategoryId { get; set; }
+
+        public IEnumerable<Category> AvailableCategories { get; set; }
+
     }
 }
