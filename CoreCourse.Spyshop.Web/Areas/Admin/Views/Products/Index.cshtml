@@ -24,9 +24,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Products.FirstOrDefault().PhotoUrl)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Products.FirstOrDefault().SortNumber)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -38,21 +35,30 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    @Html.Raw(Html.Encode(item.Description)?.Replace("&#xA;", "<br />"))
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PhotoUrl)
+                    @{
+                        string imageUrl = item.PhotoUrl != null ?
+                            "products/" + item.PhotoUrl : "default-product.png";
+                    }
+                    <div style="height:100px;width:100px;
+                                background-image:url('/images/@imageUrl');
+                                background-size: cover;"></div>
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SortNumber)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <td style="white-space:nowrap">
+                    <a asp-action="Edit" asp-route-id="@item.Id">
+                        <i class="fas fa-edit"></i>&nbsp;Edit
+                    </a><br />
+                    <a asp-action="Details" asp-route-id="@item.Id">
+                        <i class="fas fa-search"></i>&nbsp;Details
+                    </a><br />
+                    <a asp-action="Delete" asp-route-id="@item.Id">
+                        <i class="fas fa-trash"></i>&nbsp;Delete
+                    </a>
                 </td>
             </tr>
         }

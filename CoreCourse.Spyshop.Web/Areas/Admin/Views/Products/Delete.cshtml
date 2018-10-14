@@ -20,7 +20,7 @@
             @Html.DisplayNameFor(model => model.Description)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.Raw(Html.Encode(Model.Description)?.Replace("&#xA;", "<br />"))
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Price)

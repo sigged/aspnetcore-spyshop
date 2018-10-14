@@ -36,7 +36,7 @@
                 <span class="product-price">@product.Price.ToString("C2")</span>
                 <span class="product-title">@product.Name</span>
                 <span class="product-desc">
-                    @Html.Raw(product.Description?.Replace("\n", "<br />"))
+                    @Html.Raw(Html.Encode(product.Description)?.Replace("&#xA;", "<br />"))
                 </span>
             </a>
         </article>
