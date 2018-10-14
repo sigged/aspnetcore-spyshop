@@ -1,0 +1,26 @@
+[
+  {
+    "outputFile": "wwwroot/bundles/spyshop.css",
+    "inputFile": "wwwroot/assets/base.scss",
+    "includeInProject": true,
+    "options": {
+      "sourceMap": true
+    }
+  },
+  {
+    "outputFile": "wwwroot/bundles/spyshop-products.css",
+    "inputFile": "wwwroot/assets/products.scss",
+    "includeInProject": true,
+    "options": {
+      "sourceMap": true
+    }
+  },
+  {
+    "outputFile": "wwwroot/bundles/spyshop-admin.css",
+    "inputFile": "wwwroot/assets/admin.scss",
+    "includeInProject": true,
+    "options": {
+      "sourceMap": true
+    }
+  }
+]

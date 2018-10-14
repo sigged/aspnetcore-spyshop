@@ -1,0 +1,16 @@
+[
+  // this section bundles Jquery and Bootstrap into one script
+  {
+    "inputFiles": [
+      "node_modules/jquery/dist/jquery.js", // jquery must be loaded before bootstrap
+      "node_modules/bootstrap/dist/js/bootstrap.bundle.js" // append bootstrap
+    ],
+    "outputFileName": "wwwroot/bundles/spyshopbundle.js", // this comes out
+    "minify": {
+      "enabled": true,
+      "commentMode": "all"
+    },
+    "includeInProject": true,
+    "sourceMap": true
+  }
+]

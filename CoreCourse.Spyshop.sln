@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCourse.Spyshop.Web", "CoreCourse.Spyshop.Web\CoreCourse.Spyshop.Web.csproj", "{F6E7FF87-4365-4AB4-9C23-8168057E6013}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCourse.Spyshop.Web", "CoreCourse.Spyshop.Web\CoreCourse.Spyshop.Web.csproj", "{F6E7FF87-4365-4AB4-9C23-8168057E6013}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCourse.Spyshop.Domain", "CoreCourse.Spyshop.Domain\CoreCourse.Spyshop.Domain.csproj", "{9A504A0C-0691-4238-9672-CAA396085C85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCourse.Spyshop.Domain", "CoreCourse.Spyshop.Domain\CoreCourse.Spyshop.Domain.csproj", "{9A504A0C-0691-4238-9672-CAA396085C85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
