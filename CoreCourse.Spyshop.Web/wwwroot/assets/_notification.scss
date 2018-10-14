@@ -1,0 +1,46 @@
+﻿
+.successdiv,
+.errordiv {
+    clear: both;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+
+    &:before {
+        font-size: x-large;
+        float: left;
+        position: relative;
+        top: -20px;
+        left: -16px;
+        display: inline-block;
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+    }
+}
+
+.successdiv {
+    border: 1px solid #26ad0b;
+    background-color: #f2f6e3;
+
+    &:before {
+        color: #1a8b04;
+        top: -22px;
+        content: "\f058";
+    }
+}
+
+.errordiv {
+    border: 1px solid #ed2e02;
+    color: #ed2e02;
+    background-color: #fbf3ea;
+
+    &:before {
+        color: #ed2e02;
+        content: "\f057";
+    }
+
+    ul {
+        margin: 0;
+        padding-left: 25px;
+    }
+}

@@ -1,0 +1,55 @@
+﻿@import "variables";
+
+body, html {
+    height: 100%;
+}
+
+main {
+    padding-top: 30px;
+}
+
+h1 {
+    color: $spyshop-font-light-color;
+    margin-bottom:24px;
+}
+
+h3 {
+    border-bottom: 1px solid #fea347;
+    padding-bottom: 8px;
+}
+
+#header {
+    padding: 0;
+    border-bottom: 1px solid $spyshop-primary-color;
+
+    .bg-light {
+        background-color: $spyshop-bg-light-variant !important;
+    }
+}
+
+#footer{
+    background-color: $spyshop-bg-light;
+}
+
+
+
+.sale-flag {
+    display: none;
+
+    @media only screen and (min-width: 992px) {
+        display: block;
+    }
+
+    a {
+        position: absolute;
+        top: 88px;
+        right: 120px;
+        z-index: 1;
+        display: block;
+        width: 61px;
+        height: 75px;
+        background-image: url(../images/seasonsale.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}

@@ -1,0 +1,94 @@
+﻿@import "variables";
+
+#header {
+
+    .navbar {
+        padding-top: 0;
+    }
+
+    .cart-widget-container {
+        height: 40px;
+    }
+
+    .navbar-expand-lg {
+        .navbar-collapse {
+
+            li.nav-item {
+                .nav-link {
+                    padding-left: 30px;
+                    position: relative;
+
+                    &:hover {
+                        background-color: $spyshop-primary-color;
+                        color: #fff;
+                    }
+                }
+
+                &.active {
+                    .nav-link::before {
+                        font-family: "Font Awesome 5 Free";
+                        position: absolute;
+                        left: 10px;
+                        font-weight: 600;
+                        content: '\f054';
+                    }
+                }
+            }
+
+            @media only screen and (min-width: 992px) {
+                position: relative;
+                bottom: -28px;
+
+                li.nav-item {
+
+                    .nav-link {
+                        padding: 8px 15px;
+                        border: 1px solid transparent;
+                        border-top-left-radius: 4px;
+                        border-top-right-radius: 4px;
+
+                        &:hover {
+                            background-color: transparent;
+                            color: $spyshop-primary-color;
+                        }
+                    }
+
+                    &.active {
+                        .nav-link {
+                            border: 1px solid $spyshop-primary-color;
+                            border-bottom-color: $spyshop-primary-bg;
+                            background-color: $spyshop-primary-bg;
+                        }
+
+                        .nav-link::before {
+                            content: '';
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    .navbar-brand {
+        height: 80px;
+        width: 290px;
+        background: url(../images/spyshop.png) no-repeat;
+        background-size: contain;
+        padding: 40px 0 5px 105px;
+        font-size: 30px;
+        font-family: 'Segoe UI';
+        font-variant: small-caps;
+        color: $spyshop-primary-color;
+        text-shadow: 1px 2px #964c02;
+    }
+
+    .badge-cart {
+        line-height: 26px;
+        height: 26px;
+        vertical-align: top;
+        background-color: $spyshop-primary-color;
+        padding: 0px 10px;
+        font-size: 16px;
+    }
+}
