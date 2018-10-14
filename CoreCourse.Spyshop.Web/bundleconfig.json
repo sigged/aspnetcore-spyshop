@@ -12,5 +12,19 @@
     },
     "includeInProject": true,
     "sourceMap": true
+  },
+  // this section bundles validation scripts
+  {
+    "inputFiles": [
+      "node_modules/jquery-validation/dist/jquery.validate.js",
+      "node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"
+    ],
+    "outputFileName": "wwwroot/bundles/jqueryvalidatebundle.js",
+    "minify": {
+      "enabled": true,
+      "commentMode": "all"
+    },
+    "includeInProject": true,
+    "sourceMap": true
   }
 ]
