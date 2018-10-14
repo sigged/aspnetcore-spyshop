@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CoreCourse.Spyshop.Domain.Catalog;
+using CoreCourse.Spyshop.Web.Areas.Admin.ViewModels;
+using CoreCourse.Spyshop.Web.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using CoreCourse.Spyshop.Domain.Catalog;
-using CoreCourse.Spyshop.Web.Data;
 
 namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
 {
@@ -23,7 +21,12 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         // GET: Admin/Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
+            var viewModel = new ProductsIndexVm
+            {
+                Products = await _context.Products
+                    .OrderBy(e => e.SortNumber).ThenBy(e => e.Name).ToListAsync()
+            };
+            return View(viewModel);
         }
 
         // GET: Admin/Products/Details/5
@@ -47,23 +50,33 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         // GET: Admin/Products/Create
         public IActionResult Create()
         {
-            return View();
+            var viewModel = new ProductsCreateVm
+            {
+                Price = 0
+            };
+            return View(viewModel);
         }
 
         // POST: Admin/Products/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,PhotoUrl,SortNumber")] Product product)
+        public async Task<IActionResult> Create(ProductsCreateVm createVm)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
+                Product createdProduct = new Product
+                {
+                    Name = createVm.Name,
+                    Description = createVm.Description,
+                    Price = createVm.Price,
+                    PhotoUrl = createVm.PhotoUrl,
+                    SortNumber = createVm.SortNumber
+                };
+                _context.Add(createdProduct);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(createVm);
         }
 
         // GET: Admin/Products/Edit/5
@@ -73,37 +86,53 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products.SingleOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
                 return NotFound();
             }
-            return View(product);
+            var viewModel = new ProductsEditVm
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                PhotoUrl = product.PhotoUrl,
+                Price = product.Price,
+                SortNumber = product.SortNumber
+            };
+
+            return View(viewModel);
         }
 
+
         // POST: Admin/Products/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Description,Price,PhotoUrl,SortNumber")] Product product)
+        public async Task<IActionResult> Edit(long id, ProductsEditVm editVm)
         {
-            if (id != product.Id)
+            if (id != editVm.Id)
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(product);
+                    Product updatedProduct = new Product
+                    {
+                        Id = editVm.Id,
+                        Name = editVm.Name,
+                        Description = editVm.Description,
+                        Price = editVm.Price,
+                        PhotoUrl = editVm.PhotoUrl,
+                        SortNumber = editVm.SortNumber
+                    };
+                    _context.Update(updatedProduct);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    if (!ProductExists(editVm.Id))
                     {
                         return NotFound();
                     }
@@ -114,7 +143,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(editVm);
         }
 
         // GET: Admin/Products/Delete/5
