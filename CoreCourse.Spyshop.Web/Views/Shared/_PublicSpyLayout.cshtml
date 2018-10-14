@@ -4,7 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet" href="~/bundles/spyshop.css" />
+    <environment names="Production, Staging">
+        <link rel="stylesheet" asp-append-version="true" href="~/bundles/spyshop.min.css" />
+    </environment>
+    <environment names="Development">
+        <link rel="stylesheet" asp-append-version="false" href="~/bundles/spyshop.css" />
+    </environment>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
     @RenderSection("head", false)
 </head>
@@ -12,21 +17,17 @@
     <div class="d-flex flex-column h-100">
         <header id="header">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#" title="Spy Shop Inc.">Spy Shop</a>
+                <a class="navbar-brand" asp-action="Index" asp-controller="Home" title="Spy Shop Inc.">Spy Shop</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarcontent" aria-controls="navbarcontent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarcontent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active"><a class="nav-link" href="/">Start</a></li>
-                        <li class="nav-item "><a class="nav-link" href="/catalog">Products</a></li>
-                        <li class="nav-item "><a class="nav-link" href="/about">About</a></li>
-                    </ul>
+                    @await Component.InvokeAsync("MainNavigation")
                     <ul class="navbar-nav my-2 my-lg-0">
                         <li class="nav-item cart-widget-container">
-                            <a class="nav-link" href="/Cart">
+                            <a class="nav-link" asp-action="Index" asp-controller="Cart">
                                 <i class="fas fa-shopping-cart"></i>
                                 <span class="badge badge-primary badge-cart">0</span>
                             </a>
@@ -37,8 +38,8 @@
                                 Guest
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="usermenu">
-                                <a class="dropdown-item" href="/">Log in</a>
-                                <a class="dropdown-item" href="/">Register</a>
+                                <a class="dropdown-item" asp-action="Login" asp-controller="Account">Log in</a>
+                                <a class="dropdown-item" asp-action="Register" asp-controller="Account">Register</a>
                             </div>
                         </li>
                     </ul>
@@ -59,29 +60,14 @@
                 </main>
             </div>
         </div>
-        <footer id="footer" class="mt-5">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 p-2">
-                        <form class="form-inline float-right">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-12 text-center p-2">
-                        &copy; @DateTime.Now.Year Spy Shop Example Site
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <partial name="PublicFooter" />
     </div>
-    <script src="~/bundles/spyshopbundle.js"></script>
+    <environment names="Production, Staging">
+        <script asp-append-version="true" src="~/bundles/spyshopbundle.min.js"></script>
+    </environment>
+    <environment names="Development">
+        <script asp-append-version="false" src="~/bundles/spyshopbundle.js"></script>
+    </environment>
     @RenderSection("bottombody", false)
 </body>
 </html>
