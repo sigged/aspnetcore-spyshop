@@ -22,17 +22,24 @@
     <header><h3>@cat.Name</h3></header>
     <div class="product-list card-deck">
         @foreach (var product in cat.Products
-                                    .OrderBy(p => p.Name))
+            .OrderBy(p => p.SortNumber ?? int.MaxValue) //NULL sortnumbers come last
+            .ThenBy(p => p.Name))
         {
-            <article class="card my-3">
-                <a asp-action="Product">
-                    <span class="product-img"></span>
-                    <span class="product-price">@product.Price.ToString("C2")</span>
-                    <span class="product-title">@product.Name</span>
-                    <span class="product-desc">
-                        @Html.Raw(product.Description?.Replace("\n", "<br />"))</span>
-                </a>
-            </article>
+        string productImageCss = "background-size: auto;";
+        if (product.PhotoUrl != null)
+        {
+            productImageCss = $"background-image:url('../images/products/{product.PhotoUrl}')";
+        }
+        <article class="card my-3">
+            <a asp-action="Product">
+                <span class="product-img" style="@Html.Raw(productImageCss)"></span>
+                <span class="product-price">@product.Price.ToString("C2")</span>
+                <span class="product-title">@product.Name</span>
+                <span class="product-desc">
+                    @Html.Raw(product.Description?.Replace("\n", "<br />"))
+                </span>
+            </a>
+        </article>
         }
     </div>
     </section>
