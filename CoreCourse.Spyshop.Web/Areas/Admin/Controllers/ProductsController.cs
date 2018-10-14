@@ -1,8 +1,12 @@
 ﻿using CoreCourse.Spyshop.Domain.Catalog;
 using CoreCourse.Spyshop.Web.Areas.Admin.ViewModels;
 using CoreCourse.Spyshop.Web.Data;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,10 +16,12 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
     public class ProductsController : Controller
     {
         private readonly SpyShopContext _context;
+        private readonly IHostingEnvironment _env;
 
-        public ProductsController(SpyShopContext context)
+        public ProductsController(SpyShopContext context, IHostingEnvironment env)
         {
             _context = context;
+            _env = env;
         }
 
         // GET: Admin/Products
@@ -89,6 +95,8 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                         SortNumber = createVm.SortNumber,
                         Category = category
                     };
+                    createdProduct.PhotoUrl = await SaveProductImage(createVm.UploadedImage);
+
                     _context.Add(createdProduct);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -150,17 +158,20 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
 
                     if(category != null)
                     {
-                        Product updatedProduct = new Product
+                        Product updatedProduct = _context.Products.Find(editVm.Id);
+                        updatedProduct.Id = editVm.Id;
+                        updatedProduct.Name = editVm.Name;
+                        updatedProduct.Description = editVm.Description;
+                        updatedProduct.Price = editVm.Price;
+                        updatedProduct.SortNumber = editVm.SortNumber;
+                        updatedProduct.Category = category;
+
+                        if (editVm.UploadedImage != null)
                         {
-                            Id = editVm.Id,
-                            Name = editVm.Name,
-                            Description = editVm.Description,
-                            Price = editVm.Price,
-                            PhotoUrl = editVm.PhotoUrl,
-                            SortNumber = editVm.SortNumber,
-                            Category = category
-                        };
-                        _context.Update(updatedProduct);
+                            DeleteProductImage(updatedProduct);
+                            updatedProduct.PhotoUrl = await SaveProductImage(editVm.UploadedImage);
+                        }
+
                         await _context.SaveChangesAsync();
                     }
                     else
@@ -198,6 +209,9 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
             var product = await _context.Products.FindAsync(id);
+
+            DeleteProductImage(product);
+
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -206,6 +220,27 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         private bool ProductExists(long id)
         {
             return _context.Products.Any(e => e.Id == id);
+        }
+
+        private async Task<string> SaveProductImage(IFormFile file)
+        {
+            string uniqueFileName = Guid.NewGuid().ToString("N") + file.FileName;
+            string savePath = Path.Combine(_env.WebRootPath, "images", "products", uniqueFileName);
+
+            using (var newfileStream = new FileStream(savePath, FileMode.Create))
+            {
+                await file.CopyToAsync(newfileStream);
+            }
+            return uniqueFileName;
+        }
+
+        private void DeleteProductImage(Product product)
+        {
+            if (!string.IsNullOrWhiteSpace(product?.PhotoUrl))
+            {
+                string deletePath = Path.Combine(_env.WebRootPath, "images", "products", product?.PhotoUrl);
+                System.IO.File.Delete(deletePath);
+            }
         }
     }
 }

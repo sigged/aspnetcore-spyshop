@@ -1,4 +1,5 @@
 ﻿using CoreCourse.Spyshop.Domain.Catalog;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -25,5 +26,6 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.ViewModels
 
         public IEnumerable<Category> AvailableCategories { get; set; }
 
+        public IFormFile UploadedImage { get; set; }
     }
 }
