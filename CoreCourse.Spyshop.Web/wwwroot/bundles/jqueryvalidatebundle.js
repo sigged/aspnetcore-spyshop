@@ -2165,6 +2165,16 @@ $(function () {
         }
         return extension.toLowerCase();
     };
+}(jQuery));
 
-    $.validator.unobtrusive.parse("form");
+$(function () {
+    jQuery.validator.unobtrusive.adapters.add(
+        'mustbetrue',
+        [],
+        function (options) {
+            options.rules['required'] = true;
+            if (options.messages)
+                options.messages['required'] = options.message;
+        });
+
 }(jQuery));

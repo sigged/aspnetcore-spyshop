@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoreCourse.Spyshop.Web.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -36,8 +37,7 @@ namespace CoreCourse.Spyshop.Web.ViewModels
         public DateTime BirthDate { get; set; }
 
         [Display(Name = "I have read and agree to the license terms")]
-        [Range(typeof(bool), "true", "true",
-                ErrorMessage = "You must read and accept the license terms to register")]
+        [MustBeTrue(ErrorMessage = "You must read and accept the license terms to register")]
         public bool AgreeToLicense { get; set; }
     }
 

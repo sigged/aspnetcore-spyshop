@@ -37,6 +37,4 @@
         }
         return extension.toLowerCase();
     };
-
-    $.validator.unobtrusive.parse("form");
 }(jQuery));
