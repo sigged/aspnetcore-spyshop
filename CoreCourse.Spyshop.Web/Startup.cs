@@ -1,14 +1,18 @@
 ﻿using CoreCourse.Spyshop.Domain;
 using CoreCourse.Spyshop.Domain.Catalog;
 using CoreCourse.Spyshop.Domain.Settings;
+using CoreCourse.Spyshop.Domain.Shopping;
 using CoreCourse.Spyshop.Web.Data;
 using CoreCourse.Spyshop.Web.Globalization;
+using CoreCourse.Spyshop.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace CoreCourse.Spyshop.Web
@@ -37,7 +41,10 @@ namespace CoreCourse.Spyshop.Web
             //Register repositories, so IRepository can be injected
             services.AddTransient<IRepository<Product, long>, EfRepository<Product, long>>();
             services.AddTransient<IRepository<Category, long>, EfRepository<Category, long>>();
-            
+
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<ICartService, CookieCartService>();
+
             //Configure request localization
             services.Configure<RequestLocalizationOptions>(options =>
             {

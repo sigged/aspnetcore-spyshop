@@ -36,9 +36,9 @@
         <div class="clearfix details-buy">
             <form asp-action="AddProduct" asp-controller="Cart" asp-route-id="@Model.Product.Id"
                   class="details-addtocart">
-                <button type="submit" class="btn btn-lg btn-primary">
-                    <i class="fas fa-shopping-cart"></i>&nbsp;Buy now
-                </button>
+        <button type="submit" class="btn btn-lg btn-primary">
+            <i class="fas fa-shopping-cart"></i>&nbsp;Buy now
+        </button>
             </form>
             <div class="details-price">€ @Model.Product.Price.ToString("N2")</div>
         </div>

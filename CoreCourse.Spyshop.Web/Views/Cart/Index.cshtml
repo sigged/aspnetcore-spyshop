@@ -1,0 +1,58 @@
+﻿@model CoreCourse.Spyshop.Web.ViewModels.CartIndexVm
+@{
+    ViewData["Title"] = "Shopping Cart - Spyshop";
+}
+
+<h1>Shopping Cart</h1>
+<p>
+    <a asp-action="Index" asp-controller="Catalog">&laquo;&nbsp;back to catalog</a>
+</p>
+<article class="card bg-light">
+    <div class="card-body">
+        <form asp-action="UpdateCart">
+            <table class="cart">
+                <tr>
+                    <th>Product</th>
+                    <th class="cartnumber">Unit price</th>
+                    <th class="cartnumber">Qty.</th>
+                    <th class="cartnumber">Amount</th>
+                </tr>
+                @for (int i = 0; i < Model.Items.Count; i++)
+                {
+                    <tr>
+                        <td>@Model.Items[i].Name</td>
+                        <td class="cartnumber">@Model.Items[i].UnitPrice.ToString("c2")</td>
+                        <td class="cartnumber">
+                            <input asp-for="Items[i].Quantity" style="width:60px;" />
+                            <input type="hidden" asp-for="Items[i].ProductId" />
+                            <input type="hidden" asp-for="Items[i].Name" />
+                            <input type="hidden" asp-for="Items[i].UnitPrice" />
+                        </td>
+                        <td class="cartnumber mediumnumber">@Model.Items[i].ProductTotal.ToString("c2")</td>
+                    </tr>
+                }
+                @if (Model.Items.Count == 0)
+                {
+                    <tr>
+                        <td colspan="4" class="p-5">Your shopping cart is empty</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="2"></td>
+                        <td class="cartnumber">
+                            <input type="submit" value="Update cart" class="btn btn-primary btn-sm" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td class="totalamt">Total amount</td>
+                        <td class="cartnumber bignumber">@Model.CartTotal.ToString("c2")</td>
+                    </tr>
+                }
+            </table>
+        </form>
+    </div>
+</article>

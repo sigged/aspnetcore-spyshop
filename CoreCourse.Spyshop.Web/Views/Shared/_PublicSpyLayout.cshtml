@@ -26,15 +26,10 @@
                 <div class="collapse navbar-collapse" id="navbarcontent">
                     @await Component.InvokeAsync("MainNavigation")
                     <ul class="navbar-nav my-2 my-lg-0">
-                        <li class="nav-item cart-widget-container">
-                            <a class="nav-link" asp-action="Index" asp-controller="Cart" asp-area="">
-                                <i class="fas fa-shopping-cart"></i>
-                                <span class="badge badge-primary badge-cart">0</span>
-                            </a>
-                        </li>
+                        @await Component.InvokeAsync("CartWidget")
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="usermenu" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Guest
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="usermenu">
