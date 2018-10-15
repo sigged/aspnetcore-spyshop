@@ -75,6 +75,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                     Name = createVm.Name
                 };
                 await _cRepository.AddAsync(createCategory);
+                TempData[Constants.SuccessMessage] = $"Category \"{createCategory.Name}\" succesfully  created";
                 return RedirectToAction(nameof(Index));
             }
             return View(createVm);
@@ -120,6 +121,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                     updatedCategory.Id = editVm.Id;
                     updatedCategory.Name = editVm.Name;
                     await _cRepository.UpdateAsync(updatedCategory);
+                    TempData[Constants.SuccessMessage] = $"Category \"{updatedCategory.Name}\" has been updated";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -150,6 +152,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         {
             var category = await _cRepository.GetByIdAsync(id);
             await _cRepository.DeleteAsync(category);
+            TempData[Constants.SuccessMessage] = $"Category \"{category.Name}\" has been deleted";
             return RedirectToAction(nameof(Index));
         }
 
