@@ -13,6 +13,12 @@
 #*.cs     diff=csharp
 
 ###############################################################################
+# Linquist Overrides, see https://github.com/github/linguist#overrides
+###############################################################################
+aspnetcore-spyshop/CoreCourse.Spyshop.Web/wwwroot/bundles/* linguist-generated=true
+aspnetcore-spyshop/CoreCourse.Spyshop.Web/wwwroot/lib/cldr-data/* linguist-vendored=true
+
+###############################################################################
 # Set the merge driver for project and solution files
 #
 # Merging from the command prompt will add diff markers to the files if there
@@ -61,3 +67,4 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
