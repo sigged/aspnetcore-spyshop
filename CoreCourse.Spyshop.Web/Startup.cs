@@ -1,4 +1,6 @@
-﻿using CoreCourse.Spyshop.Domain.Settings;
+﻿using CoreCourse.Spyshop.Domain;
+using CoreCourse.Spyshop.Domain.Catalog;
+using CoreCourse.Spyshop.Domain.Settings;
 using CoreCourse.Spyshop.Web.Data;
 using CoreCourse.Spyshop.Web.Globalization;
 using Microsoft.AspNetCore.Builder;
@@ -32,6 +34,10 @@ namespace CoreCourse.Spyshop.Web
             services.AddDbContext<SpyShopContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("SpyShopDb")));
 
+            //Register repositories, so IRepository can be injected
+            services.AddTransient<IRepository<Product, long>, EfRepository<Product, long>>();
+            services.AddTransient<IRepository<Category, long>, EfRepository<Category, long>>();
+            
             //Configure request localization
             services.Configure<RequestLocalizationOptions>(options =>
             {

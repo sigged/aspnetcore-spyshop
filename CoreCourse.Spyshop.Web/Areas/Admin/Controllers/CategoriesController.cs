@@ -1,12 +1,8 @@
-﻿using CoreCourse.Spyshop.Domain.Catalog;
+﻿using CoreCourse.Spyshop.Domain;
+using CoreCourse.Spyshop.Domain.Catalog;
 using CoreCourse.Spyshop.Web.Areas.Admin.ViewModels;
-using CoreCourse.Spyshop.Web.Data;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,11 +11,11 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
     [Area("Admin")]
     public class CategoriesController : Controller
     {
-        private readonly SpyShopContext _context;
+        private readonly IRepository<Category, long> _cRepository;
 
-        public CategoriesController(SpyShopContext context)
+        public CategoriesController(IRepository<Category, long> cRepository)
         {
-            _context = context;
+            _cRepository = cRepository;
         }
 
         // GET: Admin/Categories
@@ -27,7 +23,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         {
             var viewModel = new CategoriesIndexVm
             {
-                Categories = await _context.Categories
+                Categories = await _cRepository.GetAll()
                     .OrderBy(e => e.Name)
                     .ToListAsync()
             };
@@ -42,7 +38,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                 return NotFound();
 
             //example usage of projection to a View Model with LINQ
-            var viewModel = await _context.Categories
+            var viewModel = await _cRepository.GetAll()
                 .Select(c =>
                     new CategoriesEditVm
                     {
@@ -78,8 +74,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                 {
                     Name = createVm.Name
                 };
-                _context.Add(createCategory);
-                await _context.SaveChangesAsync();
+                await _cRepository.AddAsync(createCategory);
                 return RedirectToAction(nameof(Index));
             }
             return View(createVm);
@@ -91,7 +86,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
             if (id == null)
                 return NotFound();
 
-            var viewModel = await _context.Categories
+            var viewModel = await _cRepository.GetAll()
                 .Select(c =>
                     new CategoriesEditVm
                     {
@@ -121,10 +116,10 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
             {
                 try
                 {
-                    Category updatedCategory = _context.Categories.Find(editVm.Id);
+                    Category updatedCategory = await _cRepository.GetByIdAsync(editVm.Id);
                     updatedCategory.Id = editVm.Id;
                     updatedCategory.Name = editVm.Name;
-                    await _context.SaveChangesAsync();
+                    await _cRepository.UpdateAsync(updatedCategory);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -153,16 +148,14 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var category = await _context.Categories.FirstOrDefaultAsync(m => m.Id == id);
-
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
+            var category = await _cRepository.GetByIdAsync(id);
+            await _cRepository.DeleteAsync(category);
             return RedirectToAction(nameof(Index));
         }
 
         private bool CategoryExists(long id)
         {
-            return _context.Categories.Any(e => e.Id == id);
+            return _cRepository.GetAll().Any(e => e.Id == id);
         }
     }
 }

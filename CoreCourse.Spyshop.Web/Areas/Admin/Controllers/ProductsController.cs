@@ -1,6 +1,6 @@
-﻿using CoreCourse.Spyshop.Domain.Catalog;
+﻿using CoreCourse.Spyshop.Domain;
+using CoreCourse.Spyshop.Domain.Catalog;
 using CoreCourse.Spyshop.Web.Areas.Admin.ViewModels;
-using CoreCourse.Spyshop.Web.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +15,17 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
     [Area("Admin")]
     public class ProductsController : Controller
     {
-        private readonly SpyShopContext _context;
+        private readonly IRepository<Product, long> _pRepository;
+        private readonly IRepository<Category, long> _cRepository;
         private readonly IHostingEnvironment _env;
 
-        public ProductsController(SpyShopContext context, IHostingEnvironment env)
+        public ProductsController(
+            IRepository<Product, long> pRepository,
+            IRepository<Category, long> cRepository,
+            IHostingEnvironment env)
         {
-            _context = context;
+            _pRepository = pRepository;
+            _cRepository = cRepository;
             _env = env;
         }
 
@@ -29,7 +34,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         {
             var viewModel = new ProductsIndexVm
             {
-                Products = await _context.Products
+                Products = await _pRepository.GetAll()
                     .OrderBy(e => e.SortNumber).ThenBy(e => e.Name).ToListAsync()
             };
             return View(viewModel);
@@ -43,7 +48,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var product = await _pRepository.GetAll()
                 .Include(e => e.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
@@ -72,7 +77,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
             {
                 Price = 0
             };
-            viewModel.AvailableCategories = _context.Categories.OrderBy(e => e.Name);
+            viewModel.AvailableCategories = _cRepository.GetAll().OrderBy(e => e.Name);
             return View(viewModel);
         }
 
@@ -83,7 +88,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                Category category = _context.Categories.Find(createVm.CategoryId.Value);
+                Category category = await _cRepository.GetByIdAsync(createVm.CategoryId.Value);
 
                 if (category != null) {
                     Product createdProduct = new Product
@@ -97,8 +102,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                     };
                     createdProduct.PhotoUrl = await SaveProductImage(createVm.UploadedImage);
 
-                    _context.Add(createdProduct);
-                    await _context.SaveChangesAsync();
+                    await _pRepository.AddAsync(createdProduct);
                     return RedirectToAction(nameof(Index));
                 }
                 else
@@ -106,7 +110,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                     ModelState.AddModelError(nameof(createVm.CategoryId), "This category doesn't exist");
                 }
             }
-            createVm.AvailableCategories = _context.Categories.OrderBy(e => e.Name);
+            createVm.AvailableCategories = _cRepository.GetAll().OrderBy(e => e.Name);
             return View(createVm);
         }
 
@@ -117,7 +121,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var product = await _context.Products
+            var product = await _pRepository.GetAll()
                 .Include(e => e.Category)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
@@ -134,7 +138,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                 Price = product.Price,
                 SortNumber = product.SortNumber,
                 CategoryId = product.Category.Id,
-                AvailableCategories = _context.Categories.OrderBy(e => e.Name)
+                AvailableCategories = _cRepository.GetAll().OrderBy(e => e.Name)
             };
 
             return View(viewModel);
@@ -154,11 +158,11 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
             {
                 try
                 {
-                    Category category = _context.Categories.Find(editVm.CategoryId.Value);
+                    Category category = await _cRepository.GetByIdAsync(editVm.CategoryId.Value);
 
                     if(category != null)
                     {
-                        Product updatedProduct = _context.Products.Find(editVm.Id);
+                        Product updatedProduct = await _pRepository.GetByIdAsync(editVm.Id);
                         updatedProduct.Id = editVm.Id;
                         updatedProduct.Name = editVm.Name;
                         updatedProduct.Description = editVm.Description;
@@ -172,7 +176,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                             updatedProduct.PhotoUrl = await SaveProductImage(editVm.UploadedImage);
                         }
 
-                        await _context.SaveChangesAsync();
+                        await _pRepository.UpdateAsync(updatedProduct);
                     }
                     else
                     {
@@ -193,7 +197,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            editVm.AvailableCategories = _context.Categories.OrderBy(e => e.Name);
+            editVm.AvailableCategories = _cRepository.GetAll().OrderBy(e => e.Name);
             return View(editVm);
         }
 
@@ -208,18 +212,17 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _pRepository.GetByIdAsync(id);
 
             DeleteProductImage(product);
 
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            await _pRepository.DeleteAsync(product);
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProductExists(long id)
         {
-            return _context.Products.Any(e => e.Id == id);
+            return _pRepository.GetAll().Any(e => e.Id == id);
         }
 
         private async Task<string> SaveProductImage(IFormFile file)
