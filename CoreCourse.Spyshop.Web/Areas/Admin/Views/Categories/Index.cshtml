@@ -1,0 +1,41 @@
+﻿@model CoreCourse.Spyshop.Web.Areas.Admin.ViewModels.CategoriesIndexVm
+
+@{
+    ViewData["Title"] = "Admin - Category Index";
+}
+
+<h3>Categories Administration</h3>
+<p>
+    <a asp-action="Create"><i class="fas fa-plus-circle"></i>&nbsp;Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.Categories.FirstOrDefault().Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Categories)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td style="white-space:nowrap">
+                    <a asp-action="Edit" asp-route-id="@item.Id">
+                        <i class="fas fa-edit"></i>&nbsp;Edit
+                    </a><br />
+                    <a asp-action="Details" asp-route-id="@item.Id">
+                        <i class="fas fa-search"></i>&nbsp;Details
+                    </a><br />
+                    <a asp-action="Delete" asp-route-id="@item.Id">
+                        <i class="fas fa-trash"></i>&nbsp;Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
