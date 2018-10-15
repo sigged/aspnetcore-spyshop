@@ -28,6 +28,8 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.ViewModels
 
         public IEnumerable<Category> AvailableCategories { get; set; }
 
+        [UploadedImage(maxLength: 500)]
         public IFormFile UploadedImage { get; set; }
+
     }
 }

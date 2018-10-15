@@ -18,7 +18,8 @@
     "inputFiles": [
       "node_modules/jquery-validation/dist/jquery.validate.js",
       "node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js",
-      "node_modules/jquery-validation-globalize-fix/jquery.validate.globalize.js"
+      "node_modules/jquery-validation-globalize-fix/jquery.validate.globalize.js",
+      "wwwroot/lib/uploadedimage-validation.js"
     ],
     "outputFileName": "wwwroot/bundles/jqueryvalidatebundle.js",
     "minify": {
