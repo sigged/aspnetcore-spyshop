@@ -1,98 +1,70 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewBag.Title</title>
     <environment names="Production, Staging">
-        <link rel="stylesheet"
-              asp-append-version="true"
-              asp-href-include="~/bootstrap/css/*.min.css"
-              asp-href-exclude="~/bootstrap/css/*-theme*.css" />
+        <link rel="stylesheet" asp-append-version="true" href="~/bundles/spyshop.min.css" />
     </environment>
     <environment names="Development">
-        <link rel="stylesheet"
-              asp-append-version="true"
-              asp-href-include="~/bootstrap/css/*.css"
-              asp-href-exclude="~/bootstrap/css/*.min.css, ~/bootstrap/css/*-theme*.css" />
+        <link rel="stylesheet" asp-append-version="false" href="~/bundles/spyshop.css" />
     </environment>
-    <link href="~/css/spyshop.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
     @RenderSection("head", false)
 </head>
 <body>
-    <div id="container" class="container-fluid">
-        <div class="row">
-            <header id="header" class="col-sm-12">
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <!-- Brand and toggle get grouped for better mobile display -->
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle collapsed"
-                                    data-toggle="collapse" data-target="#spynav">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <a class="navbar-brand" asp-action="Index" asp-controller="Home" asp-area="">Spy Shop</a>
-                        </div>
-
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse" id="spynav">
-                            <ul class="nav navbar-nav">
-                                @await Component.InvokeAsync("MainNavigation")
-                            </ul>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li>
-                                    @await Component.InvokeAsync("CartWidget")
-                                </li>
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown"
-                                       role="button" aria-haspopup="true" aria-expanded="false">
-                                        <span class="glyphicon glyphicon-user"></span>
-                                        Guest <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a asp-action="Login" asp-controller="Account" asp-area="">Log in</a></li>
-                                        <li><a asp-action="Register" asp-controller="Account" asp-area="">Register</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div><!-- /.navbar-collapse -->
-                    </div><!-- /.container-fluid -->
-                </nav>
-            </header>
-
-            @RenderSection("abovemain", false)
-
-            <main id="maincontainer" class="col-sm-12">
-                <section id="maincontent">
+    <div class="d-flex flex-column h-100">
+        <header id="header">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" asp-action="Index" asp-controller="Home" asp-area="" title="Spy Shop Inc.">Spy Shop</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarcontent" aria-controls="navbarcontent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarcontent">
+                    @await Component.InvokeAsync("MainNavigation")
+                    <ul class="navbar-nav my-2 my-lg-0">
+                        @await Component.InvokeAsync("CartWidget")
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="usermenu" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Guest
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="usermenu">
+                                <a class="dropdown-item" asp-action="Login" asp-controller="Account" asp-area="">Log in</a>
+                                <a class="dropdown-item" asp-action="Register" asp-controller="Account" asp-area="">Register</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div class="container-fluid flex-grow-1">
+            <div class="row">
+                @RenderSection("abovemain", false)
+            </div>
+            <div class="row">
+                <main class="col">
                     <div class="row">
-                        <div class="col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
-
-                            @await Html.PartialAsync("NotificationPartial")
-                            
+                        <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                            <partial name="_NotificationPartial" />
                             @RenderBody()
                         </div>
                     </div>
-                </section>
-            </main>
-
-            @Html.Partial("PublicFooter")
+                </main>
+            </div>
         </div>
+        <partial name="PublicFooter" />
     </div>
     <environment names="Production, Staging">
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script asp-append-version="true"
-                asp-src-include="~/bootstrap/js/*.min.js"
-                asp-src-exclude="~/bootstrap/js/npm.js"></script>
+        <script asp-append-version="true" src="~/bundles/spyshopbundle.min.js"></script>
     </environment>
     <environment names="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script asp-append-version="true"
-                asp-src-include="~/bootstrap/js/*.js"
-                asp-src-exclude="~/bootstrap/js/*.min.js, ~/bootstrap/js/npm.js"></script>
+        <script asp-append-version="false" src="~/bundles/spyshopbundle.js"></script>
     </environment>
-    @Html.Partial("_ValidationScriptsPartial")
+    <partial name="_ValidationScriptsPartial" />
     @RenderSection("bottombody", false)
 </body>
 </html>

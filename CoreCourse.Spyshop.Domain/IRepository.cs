@@ -24,7 +24,7 @@ namespace CoreCourse.Spyshop.Domain
         /// Deletes entity of type T from the data store
         /// </summary>
         Task DeleteAsync(T entity);
-        
+
         /// <summary>
         /// Updates entity of type T from the data store
         /// </summary>

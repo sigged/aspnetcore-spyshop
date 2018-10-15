@@ -40,5 +40,5 @@ namespace CoreCourse.Spyshop.Web.ViewModels
         [MustBeTrue(ErrorMessage = "You must read and accept the license terms to register")]
         public bool AgreeToLicense { get; set; }
     }
-    
+
 }

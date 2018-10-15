@@ -1,10 +1,8 @@
 ﻿using CoreCourse.Spyshop.Domain;
 using CoreCourse.Spyshop.Domain.Catalog;
-using CoreCourse.Spyshop.Web.Data;
 using CoreCourse.Spyshop.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CoreCourse.Spyshop.Web.Controllers
@@ -27,7 +25,7 @@ namespace CoreCourse.Spyshop.Web.Controllers
             var categories = await _cRepository.GetAll()
                 .Include(c => c.Products)
                 .ToListAsync();
-            
+
             CatalogIndexVm viewmodel = new CatalogIndexVm();
             viewmodel.Categories = categories;
 
@@ -41,7 +39,7 @@ namespace CoreCourse.Spyshop.Web.Controllers
             {
                 var vm = new CatalogProductVm();
                 vm.Product = await _pRepository.GetByIdAsync(id.Value);
-                if (vm.Product != null && 
+                if (vm.Product != null &&
                     vm.Product.Name?.ToLower().Trim() == name?.ToLower().Trim())
                 {
                     return View(vm);
@@ -49,6 +47,5 @@ namespace CoreCourse.Spyshop.Web.Controllers
             }
             return NotFound();
         }
-        
     }
 }

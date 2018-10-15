@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CoreCourse.Spyshop.Web.Data
 {
-    public class EfRepository<T,TKey> : IRepository<T, TKey>
+    public class EfRepository<T, TKey> : IRepository<T, TKey>
         where T : BaseEntity<TKey>
     {
         protected readonly SpyShopContext _dbContext;

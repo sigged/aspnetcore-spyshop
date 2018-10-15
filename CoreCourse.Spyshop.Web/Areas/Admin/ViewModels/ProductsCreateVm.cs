@@ -1,5 +1,4 @@
 ﻿using CoreCourse.Spyshop.Domain.Catalog;
-using CoreCourse.Spyshop.Web.Validation;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,12 +16,10 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.ViewModels
 
         public decimal Price { get; set; }
 
+        [MaxLength(250)]
         public string PhotoUrl { get; set; }
 
-        [UploadedImage(maxLength: 500)]
-        public IFormFile UploadedImage { get; set; }
-
-        [Display(Name = "Sort Number")]
+        [Display(Name = "Sort number")]
         public int? SortNumber { get; set; }
 
         [Display(Name = "Category")]
@@ -30,6 +27,9 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.ViewModels
         public long? CategoryId { get; set; }
 
         public IEnumerable<Category> AvailableCategories { get; set; }
+
+        [UploadedImage(maxLength: 500)]
+        public IFormFile UploadedImage { get; set; }
 
     }
 }

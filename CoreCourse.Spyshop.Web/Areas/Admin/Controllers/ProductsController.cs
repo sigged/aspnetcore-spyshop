@@ -21,7 +21,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
 
         public ProductsController(
             IRepository<Product, long> pRepository,
-            IRepository<Category, long> cRepository, 
+            IRepository<Category, long> cRepository,
             IHostingEnvironment env)
         {
             _pRepository = pRepository;
@@ -50,8 +50,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
 
             var product = await _pRepository.GetAll()
                 .Include(e => e.Category)
-                .SingleOrDefaultAsync(e => e.Id == id);
-
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
                 return NotFound();
@@ -83,8 +82,6 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         }
 
         // POST: Admin/Products/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductsCreateVm createVm)
@@ -93,8 +90,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
             {
                 Category category = await _cRepository.GetByIdAsync(createVm.CategoryId.Value);
 
-                if (category != null)
-                {
+                if (category != null) {
                     Product createdProduct = new Product
                     {
                         Name = createVm.Name,
@@ -104,10 +100,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                         SortNumber = createVm.SortNumber,
                         Category = category
                     };
-                    if (createVm.UploadedImage != null)
-                    {
-                        createdProduct.PhotoUrl = await SaveProductImage(createVm.UploadedImage);
-                    }
+                    createdProduct.PhotoUrl = await SaveProductImage(createVm.UploadedImage);
 
                     await _pRepository.AddAsync(createdProduct);
                     TempData[Constants.SuccessMessage] = $"Product \"{createdProduct.Name}\" has been created";
@@ -121,7 +114,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
             createVm.AvailableCategories = _cRepository.GetAll().OrderBy(e => e.Name);
             return View(createVm);
         }
-        
+
         // GET: Admin/Products/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
@@ -152,9 +145,8 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
             return View(viewModel);
         }
 
+
         // POST: Admin/Products/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id, ProductsEditVm editVm)
@@ -168,7 +160,8 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                 try
                 {
                     Category category = await _cRepository.GetByIdAsync(editVm.CategoryId.Value);
-                    if (category != null)
+
+                    if(category != null)
                     {
                         Product updatedProduct = await _pRepository.GetByIdAsync(editVm.Id);
                         updatedProduct.Id = editVm.Id;
@@ -183,6 +176,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                             DeleteProductImage(updatedProduct);
                             updatedProduct.PhotoUrl = await SaveProductImage(editVm.UploadedImage);
                         }
+
                         TempData[Constants.SuccessMessage] = $"Product \"{updatedProduct.Name}\" has been updated";
                         await _pRepository.UpdateAsync(updatedProduct);
                     }
@@ -204,6 +198,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             editVm.AvailableCategories = _cRepository.GetAll().OrderBy(e => e.Name);
             return View(editVm);
         }
@@ -220,7 +215,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
             var product = await _pRepository.GetByIdAsync(id);
-            
+
             DeleteProductImage(product);
 
             await _pRepository.DeleteAsync(product);
@@ -232,11 +227,11 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         {
             return _pRepository.GetAll().Any(e => e.Id == id);
         }
-        
+
         private async Task<string> SaveProductImage(IFormFile file)
         {
             string uniqueFileName = Guid.NewGuid().ToString("N") + file.FileName;
-            string savePath = Path.Combine(_env.WebRootPath, "images", "products",uniqueFileName);
+            string savePath = Path.Combine(_env.WebRootPath, "images", "products", uniqueFileName);
 
             using (var newfileStream = new FileStream(savePath, FileMode.Create))
             {

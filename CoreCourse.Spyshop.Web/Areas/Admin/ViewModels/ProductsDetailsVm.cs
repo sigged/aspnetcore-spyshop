@@ -4,7 +4,7 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.ViewModels
 {
     public class ProductsDetailsVm : ProductsEditVm
     {
-        [Display(Name="Category")]
+        [Display(Name = "Category")]
         public string CategoryName { get; set; }
     }
 }

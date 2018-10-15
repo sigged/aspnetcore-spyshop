@@ -1,6 +1,12 @@
 ﻿@model IEnumerable<CoreCourse.Spyshop.Web.ViewModels.Components.MainNavLinkVm>
 
+<ul class="navbar-nav mr-auto">
 @foreach (var navlink in Model)
 {
-    <li@(Html.Raw(navlink.IsActive ? " class=\"active\"" : ""))><a asp-action="@navlink.Action" asp-controller="@navlink.Controller" asp-area="@navlink.Area">@navlink.Text</a></li>
+    <li class="nav-item @(Html.Raw(navlink.IsActive ? "active" : ""))">
+        <a class="nav-link" asp-action="@navlink.Action" 
+                            asp-controller="@navlink.Controller" 
+                            asp-area="@navlink.Area">@navlink.Text</a>
+    </li>
 }
+</ul>

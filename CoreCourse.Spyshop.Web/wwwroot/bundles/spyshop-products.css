@@ -1,0 +1,286 @@
+﻿@media only screen and (min-width: 0) {
+  .product-list .card {
+    flex: 0 0 calc(100% - 30px); } }
+
+@media only screen and (min-width: 576px) {
+  .product-list .card {
+    flex: 0 0 calc(50% - 30px); } }
+
+@media only screen and (min-width: 768px) {
+  .product-list .card {
+    flex: 0 0 calc(50% - 30px); } }
+
+@media only screen and (min-width: 992px) {
+  .product-list .card {
+    flex: 0 0 calc(50% - 30px); } }
+
+@media only screen and (min-width: 1200px) {
+  .product-list .card {
+    flex: 0 0 calc(33.33333% - 30px); } }
+
+.product-list {
+  margin: 0 auto;
+  max-width: 400px; }
+  @media only screen and (min-width: 576px) {
+    .product-list {
+      max-width: none; } }
+  @media only screen and (min-width: 1200px) {
+    .product-list {
+      max-width: 1000px; } }
+  .product-list .card {
+    position: relative;
+    height: 300px; }
+    .product-list .card::before {
+      content: '';
+      float: left; }
+    .product-list .card a {
+      display: block;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+      overflow-y: hidden; }
+      .product-list .card a .product-img {
+        display: block;
+        margin-top: 20%;
+        width: 100%;
+        position: static;
+        height: 80%;
+        background-image: url("../images/default-product.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        transition: opacity ease-in-out 0.5s; }
+        @media only screen and (min-width: 576px) {
+          .product-list .card a .product-img {
+            margin-top: 0; } }
+      .product-list .card a .product-title {
+        display: block;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 20%;
+        padding: 15px;
+        background-color: #ff7f00;
+        z-index: 2;
+        text-align: center;
+        font-size: large;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #fff; }
+        @media only screen and (min-width: 576px) {
+          .product-list .card a .product-title {
+            position: relative;
+            top: 0;
+            left: 0; } }
+      .product-list .card a .product-price {
+        display: block;
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.85);
+        padding: 5px;
+        color: #fe7e00;
+        border: 1px solid #fe7e00;
+        border-left: none;
+        top: 33.3%;
+        font-size: 18pt;
+        min-width: 85px;
+        z-index: 1; }
+        @media only screen and (min-width: 576px) {
+          .product-list .card a .product-price {
+            top: 20px; } }
+      .product-list .card a .product-desc {
+        display: none;
+        width: 50%;
+        top: 25%;
+        left: 50%;
+        height: 80%;
+        position: absolute;
+        z-index: 1;
+        padding: 10px 18px;
+        line-height: 1.8em;
+        background-color: rgba(245, 238, 221, 0.9);
+        color: #222;
+        border-bottom: 2px solid #ff7f00;
+        overflow: hidden; }
+        @media only screen and (min-width: 576px) {
+          .product-list .card a .product-desc {
+            display: block;
+            top: 80%;
+            width: 100%;
+            left: 0;
+            background: linear-gradient(45deg, rgba(245, 238, 221, 0.9) 40%, rgba(245, 238, 221, 0.75) 70%, rgba(245, 238, 221, 0.25) 100%);
+            transition: top ease-out 0.25s;
+            border-top: 2px solid #fea347; } }
+      .product-list .card a:hover {
+        text-decoration: none; }
+        .product-list .card a:hover .product-desc {
+          top: 35%; }
+        .product-list .card a:hover .product-img {
+          opacity: 0.25; }
+  .product-list .card-body {
+    padding: 10px;
+    border: 1px solid #fe7e00;
+    overflow: hidden; }
+
+.details-buy {
+  margin-top: 40px; }
+
+.details-price {
+  font-size: 40pt;
+  line-height: 34pt;
+  color: #ff7f00;
+  margin-top: 20px; }
+
+.details-addtocart {
+  margin: 0 20px; }
+
+@media (min-width: 500px) {
+  .details-price, .details-addtocart {
+    float: right; }
+  .details-price {
+    margin-top: 0; } }
+
+/*.product-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+    .product-grid li {
+        margin-left: 0;
+        width: 100%;
+        height: 200px;
+    }
+
+    .product-grid article,
+    .product-grid article > a {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 10px 20px 10px 0;
+    }
+
+        .product-grid article > a:hover {
+            text-decoration: none;
+        }
+
+        .product-grid article > a .product-img {
+            width: 50%;
+            height: 75%;
+            position: absolute;
+            top: 25%;
+            background-image: url('../images/default-product.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            transition: opacity ease-in-out 0.5s;
+        }
+
+        .product-grid article > a:hover .product-img {
+            opacity: 0.25;
+        }
+
+        .product-grid article > a .product-title {
+            width: 100%;
+            height: 25%;
+            padding: 10px;
+            background-color: #ff7f00;
+            position: absolute;
+            top: 0;
+            z-index: 2;
+            text-align: center;
+            font-size: large;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .product-grid article > a .product-price {
+            width: 50%;
+            height: 15%;
+            padding: 5px;
+            color: #fff !important;
+            background: linear-gradient(-45deg, rgb(254, 163, 71) 0%, rgb(254, 163, 71) 44%, rgba(255, 255, 255, 0) 44%);
+            position: absolute;
+            bottom: 0;
+            z-index: 1;
+            text-align: right;
+            font-size: medium;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .product-grid article > a .product-desc {
+            width: 50%;
+            height: 75%;
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            z-index: 1;
+            padding: 10px 18px;
+            line-height: 1.8em;
+            background-color: rgba(245, 238, 221, 0.90);
+            color: #222;
+            border-bottom: 2px solid #ff7f00;
+            overflow: hidden;
+        }
+
+
+
+
+@media (min-width: 500px) {
+
+    .product-grid {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+        .product-grid li {
+            width: 200px;
+            margin: 10px 20px 10px 0;
+        }
+
+        .product-grid article > a {
+            text-decoration: none;
+            overflow-y: hidden;
+        }
+
+            .product-grid article > a .product-img {
+                width: 100%;
+                position: static;
+            }
+
+            .product-grid article > a .product-price {
+                width: 100%;
+                color: #ff8000 !important;
+                background: linear-gradient(45deg, rgba(255, 255, 255, 0) 56%, rgba(255, 255, 255, 0.5) 56%, rgba(255, 255, 255, 0.5) 100%);
+                top: 0;
+                font-weight: bold;
+            }
+
+            .product-grid article > a .product-title {
+                position: relative;
+                top: 0;
+                left: 0;
+            }
+
+            .product-grid article > a .product-desc {
+                width: 100%;
+                top: 75%;
+                left: 0;
+                background: linear-gradient(45deg, rgba(245,238,221,0.90) 40%, rgba(245,238,221,0.75) 70%, rgba(245,238,221,0.25) 100%);
+                transition: top ease-out 0.25s;
+                border-top: 2px solid #fea347;
+            }
+
+            .product-grid article > a:hover .product-desc {
+                top: 15%;
+            }
+}*/
+
+/*# sourceMappingURL=data:application/json;base64,ewoJInZlcnNpb24iOiAzLAoJImZpbGUiOiAid3d3cm9vdC9hc3NldHMvcHJvZHVjdHMuY3NzIiwKCSJzb3VyY2VzIjogWwoJCSJ3d3dyb290L2Fzc2V0cy9wcm9kdWN0cy5zY3NzIiwKCQkid3d3cm9vdC9hc3NldHMvX3ZhcmlhYmxlcy5zY3NzIgoJXSwKCSJuYW1lcyI6IFtdLAoJIm1hcHBpbmdzIjogIkFBWUksTUFBTSxNQUFNLE1BQU0sTUFBTSxTQUFTLEVBQUUsQ0FBQztFQUNoQyxBQUFjLGFBQUQsQ0FBQyxLQUFLLENBQUM7SUFDaEIsSUFBSSxFQUFFLENBQUMsQ0FBQyxDQUFDLENBQUMsaUJBQXFFLEdBQ2xGOztBQUhMLE1BQU0sTUFBTSxNQUFNLE1BQU0sU0FBUyxFQUFFLEtBQUs7RUFDcEMsQUFBYyxhQUFELENBQUMsS0FBSyxDQUFDO0lBQ2hCLElBQUksRUFBRSxDQUFDLENBQUMsQ0FBQyxDQUFDLGdCQUFxRSxHQUNsRjs7QUFITCxNQUFNLE1BQU0sTUFBTSxNQUFNLFNBQVMsRUFBRSxLQUFLO0VBQ3BDLEFBQWMsYUFBRCxDQUFDLEtBQUssQ0FBQztJQUNoQixJQUFJLEVBQUUsQ0FBQyxDQUFDLENBQUMsQ0FBQyxnQkFBcUUsR0FDbEY7O0FBSEwsTUFBTSxNQUFNLE1BQU0sTUFBTSxTQUFTLEVBQUUsS0FBSztFQUNwQyxBQUFjLGFBQUQsQ0FBQyxLQUFLLENBQUM7SUFDaEIsSUFBSSxFQUFFLENBQUMsQ0FBQyxDQUFDLENBQUMsZ0JBQXFFLEdBQ2xGOztBQUhMLE1BQU0sTUFBTSxNQUFNLE1BQU0sU0FBUyxFQUFFLE1BQU07RUFDckMsQUFBYyxhQUFELENBQUMsS0FBSyxDQUFDO0lBQ2hCLElBQUksRUFBRSxDQUFDLENBQUMsQ0FBQyxDQUFDLHNCQUFxRSxHQUNsRjs7QUFPVCxBQUFBLGFBQWEsQ0FBQztFQUNWLE1BQU0sRUFBRSxNQUFNO0VBQ2QsU0FBUyxFQUFFLEtBQUssR0FxSW5CO0VBbklHLE1BQU0sTUFBTSxNQUFNLE1BQU0sU0FBUyxFQUFFLEtBQUs7SUFKNUMsQUFBQSxhQUFh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 */

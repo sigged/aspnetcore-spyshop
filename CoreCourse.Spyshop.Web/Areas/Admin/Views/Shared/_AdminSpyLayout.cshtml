@@ -3,12 +3,17 @@
 }
 
 @section head{
-    <link href="~/css/admin.css" rel="stylesheet" />
+    <environment names="Production, Staging">
+        <link rel="stylesheet" asp-append-version="true" href="~/bundles/spyshop-admin.min.css" />
+    </environment>
+    <environment names="Development">
+        <link rel="stylesheet" asp-append-version="false" href="~/bundles/spyshop-admin.css" />
+    </environment>
 }
 
 @section abovemain
-    {
-    <div class="adminnav col-sm-12">
+{
+    <div class="adminnav col-sm">
         <div class="navcontent">
             <div class="navtitle">Administration</div>
             <ul>
@@ -16,10 +21,6 @@
             </ul>
         </div>
     </div>
-}
-
-@section bottombody{
-    <script src="~/scripts/uploadedimage-validation.js"></script>
 }
 
 @RenderBody()

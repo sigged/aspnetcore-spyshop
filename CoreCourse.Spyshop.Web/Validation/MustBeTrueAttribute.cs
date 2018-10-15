@@ -10,7 +10,7 @@ namespace CoreCourse.Spyshop.Web.Validation
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class MustBeTrueAttribute : ValidationAttribute, IClientModelValidator
     {
-        
+
         public MustBeTrueAttribute(string errorMessage = null) : base(errorMessage)
         {
             ErrorMessage = errorMessage ?? $"Please check this checkbox";
@@ -30,7 +30,7 @@ namespace CoreCourse.Spyshop.Web.Validation
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if(value is bool && !(bool)value)
+            if (value is bool && !(bool)value)
             {
                 return new ValidationResult(ErrorMessage);
             }

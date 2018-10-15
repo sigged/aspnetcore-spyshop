@@ -1,8 +1,5 @@
 ﻿using CoreCourse.Spyshop.Domain.Catalog;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoreCourse.Spyshop.Web.ViewModels
 {
@@ -10,4 +7,5 @@ namespace CoreCourse.Spyshop.Web.ViewModels
     {
         public List<Category> Categories { get; set; }
     }
+
 }

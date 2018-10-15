@@ -4,12 +4,11 @@
     ViewData["Title"] = "Admin - Delete Product";
 }
 
-<h2>Products Administration</h2>
-
 <h3>Delete Product</h3>
 <div>
-    <h4>Are you sure you want to delete this?</h4>
-    <hr />
+    <br />
+    <h4 class="text-danger">Are you sure you want to delete this?</h4>
+    <br />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -21,7 +20,7 @@
             @Html.DisplayNameFor(model => model.Description)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.Raw(Html.Encode(Model.Description)?.Replace("&#xA;", "<br />"))
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Price)
@@ -51,7 +50,7 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>
 </div>

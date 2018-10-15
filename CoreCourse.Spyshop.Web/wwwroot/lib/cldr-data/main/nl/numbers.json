@@ -3,8 +3,8 @@
     "nl": {
       "identity": {
         "version": {
-          "_number": "$Revision: 12381 $",
-          "_cldrVersion": "29"
+          "_number": "$Revision: 13920 $",
+          "_cldrVersion": "33"
         },
         "language": "nl"
       },
@@ -142,6 +142,11 @@
         "miscPatterns-numberSystem-latn": {
           "atLeast": "{0}+",
           "range": "{0}-{1}"
+        },
+        "minimalPairs": {
+          "pluralMinimalPairs-count-one": "{0} dag",
+          "pluralMinimalPairs-count-other": "{0} dagen",
+          "other": "Neem de {0}e afslag rechts."
         }
       }
     }

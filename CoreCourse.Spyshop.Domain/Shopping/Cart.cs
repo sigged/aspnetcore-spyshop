@@ -8,7 +8,7 @@ namespace CoreCourse.Spyshop.Domain.Shopping
         {
             Items = new List<CartItem>();
         }
-        
+
         public IList<CartItem> Items { get; set; }
     }
 }

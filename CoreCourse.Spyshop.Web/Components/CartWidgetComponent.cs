@@ -23,4 +23,5 @@ namespace CoreCourse.Spyshop.Web.Components
             return View(itemsInCard);
         }
     }
+
 }

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CoreCourse.Spyshop.Web.ViewModels;
+﻿using CoreCourse.Spyshop.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace CoreCourse.Spyshop.Web.Controllers
 {
@@ -21,20 +18,22 @@ namespace CoreCourse.Spyshop.Web.Controllers
         {
             string validUser = "Joe";
             string validPass = "unsafe";
-            
+
             if (ModelState.IsValid) //if form was filled in correctly
             {
-                //check if provided credentials are valid (user: Joe, pas: Doe)
-                if (viewmodel.Username.Trim().Equals(validUser, StringComparison.InvariantCultureIgnoreCase) &&
+                //check if provided credentials are valid (user: Joe, pas: unsafe)
+                if (viewmodel.Username.Trim().Equals(validUser, StringComparison.InvariantCultureIgnoreCase)
+                    &&
                     viewmodel.Password == validPass)
                 {
                     //todo: add authentication code
 
-                    return new RedirectToActionResult("Index", "Home", null);   //redirect to homepage on succesful sign in.
+                    return new RedirectToActionResult("Index", "Home", null);  //redirect to homepage.
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "The credentials you have provided are invalid. Please try again.");
+                    ModelState.AddModelError(string.Empty,
+                           "The credentials you have provided are invalid. Please try again.");
                     return View(viewmodel);
                 }
             }

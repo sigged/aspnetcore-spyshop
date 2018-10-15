@@ -16,7 +16,6 @@ namespace CoreCourse.Spyshop.Web.Controllers
             spyShopConfig = spyshopconfig.Value;
         }
 
-
         public IActionResult Index()
         {
             //Create the View Model

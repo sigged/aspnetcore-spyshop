@@ -52,5 +52,4 @@ namespace CoreCourse.Spyshop.Web.Globalization
             return new CultureInfo(defaultCulture);
         }
     }
-
 }

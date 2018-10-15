@@ -4,10 +4,9 @@
     ViewData["Title"] = "Admin - Category Index";
 }
 
-<h2>Categories Administration</h2>
-
+<h3>Categories Administration</h3>
 <p>
-    <a asp-action="Create"><span class="glyphicon glyphicon-plus"></span>&nbsp;Create New</a>
+    <a asp-action="Create"><i class="fas fa-plus-circle"></i>&nbsp;Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -27,13 +26,13 @@
                 </td>
                 <td style="white-space:nowrap">
                     <a asp-action="Edit" asp-route-id="@item.Id">
-                        <span class="glyphicon glyphicon-edit"></span>&nbsp;Edit
+                        <i class="fas fa-edit"></i>&nbsp;Edit
                     </a><br />
                     <a asp-action="Details" asp-route-id="@item.Id">
-                        <span class="glyphicon glyphicon-zoom-in"></span>&nbsp;Details
+                        <i class="fas fa-search"></i>&nbsp;Details
                     </a><br />
                     <a asp-action="Delete" asp-route-id="@item.Id">
-                        <span class="glyphicon glyphicon-trash"></span>&nbsp;Delete
+                        <i class="fas fa-trash"></i>&nbsp;Delete
                     </a>
                 </td>
             </tr>

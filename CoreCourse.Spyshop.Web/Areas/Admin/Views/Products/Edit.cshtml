@@ -4,12 +4,9 @@
     ViewData["Title"] = "Admin - Edit Product";
 }
 
-<h2>Products Administration</h2>
-
-<h4>Edit Product</h4>
-<hr />
+<h3>Edit Product</h3>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
@@ -20,7 +17,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control"></textarea>
+                <textarea asp-for="Description" rows="5" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -44,13 +41,15 @@
             <div class="form-group">
                 <div>
                     <label>Product image</label>
-                    @{ 
+                    @{
                         var photoUrl = string.IsNullOrWhiteSpace(Model.PhotoUrl) ?
                             "default-product.png" : "products/" + Model.PhotoUrl;
                     }
-                    <img style="display:block;margin:0 auto;max-width:300px;max-height:300px;" 
-                            src="~/images/@photoUrl" />
+                    <img style="display:block;margin:0 auto;max-width:300px;max-height:300px;"
+                         src="~/images/@photoUrl" />
                 </div>
+
+
                 <label asp-for="UploadedImage">Upload a new image for this product</label>
                 <input type="file" asp-for="UploadedImage" />
                 <p>
@@ -58,7 +57,7 @@
                 </p>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>

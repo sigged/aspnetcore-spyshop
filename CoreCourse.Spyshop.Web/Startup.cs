@@ -7,45 +7,43 @@ using CoreCourse.Spyshop.Web.Globalization;
 using CoreCourse.Spyshop.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace CoreCourse.Spyshop.Web
 {
     public class Startup
     {
-        IConfigurationRoot configuration = null;
-        IHostingEnvironment env = null;
+        private IHostingEnvironment env = null;
 
-        public Startup(IHostingEnvironment environment)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
+            Configuration = configuration;
             env = environment;
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
-
-            configuration = builder.Build();
         }
-        
+
+        public IConfiguration Configuration { get; }      
+  
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddOptions();
-            services.Configure<SpyShopConfig>(configuration.GetSection("SpyShopConfig"));
+            services.Configure<SpyShopConfig>(Configuration.GetSection("SpyShopConfig"));
 
             services.AddDbContext<SpyShopContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("SpyShopDb")));
+                    options.UseSqlServer(Configuration.GetConnectionString("SpyShopDb")));
 
+            //Register repositories, so IRepository can be injected
             services.AddTransient<IRepository<Product, long>, EfRepository<Product, long>>();
             services.AddTransient<IRepository<Category, long>, EfRepository<Category, long>>();
-            services.AddTransient<ICartService,CookieCartService>();
+
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<ICartService, CookieCartService>();
 
             //Configure request localization
             services.Configure<RequestLocalizationOptions>(options =>
@@ -65,17 +63,7 @@ namespace CoreCourse.Spyshop.Web
         {
             if (env.IsDevelopment())
             {
-                //Middleware #1: Has an exception occurred? Show detailed error message.
                 app.UseDeveloperExceptionPage();
-
-                //create a scope with which to get the DbContext service (yuck!)
-                using (var serviceScope = app.ApplicationServices
-                                                .GetRequiredService<IServiceScopeFactory>()
-                                                .CreateScope())
-                {
-                    var context = serviceScope.ServiceProvider.GetService<SpyShopContext>(); //get DbContext
-                    DataSeeder.Seed(context);
-                }
             }
             else
             {

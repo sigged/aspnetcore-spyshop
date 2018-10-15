@@ -40,13 +40,14 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
             //example usage of projection to a View Model with LINQ
             var viewModel = await _cRepository.GetAll()
                 .Select(c =>
-                    new CategoriesEditVm {
+                    new CategoriesEditVm
+                    {
                         Id = c.Id,
                         Name = c.Name,
                         NumberOfProducts = c.Products.Count()
                     }
                 )
-                .SingleOrDefaultAsync(e => e.Id == id);
+                .FirstOrDefaultAsync(e => e.Id == id);
 
             if (viewModel == null)
                 return NotFound();
@@ -69,7 +70,8 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                Category createCategory = new Category {
+                Category createCategory = new Category
+                {
                     Name = createVm.Name
                 };
                 await _cRepository.AddAsync(createCategory);
@@ -87,13 +89,14 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
 
             var viewModel = await _cRepository.GetAll()
                 .Select(c =>
-                    new CategoriesEditVm {
+                    new CategoriesEditVm
+                    {
                         Id = c.Id,
                         Name = c.Name,
                         NumberOfProducts = c.Products.Count()
                     }
                 )
-                .SingleOrDefaultAsync(e => e.Id == id);
+                .FirstOrDefaultAsync(e => e.Id == id);
 
             if (viewModel == null)
                 return NotFound();
@@ -117,8 +120,8 @@ namespace CoreCourse.Spyshop.Web.Areas.Admin.Controllers
                     Category updatedCategory = await _cRepository.GetByIdAsync(editVm.Id);
                     updatedCategory.Id = editVm.Id;
                     updatedCategory.Name = editVm.Name;
-                    TempData[Constants.SuccessMessage] = $"Category \"{updatedCategory.Name}\" has been updated";
                     await _cRepository.UpdateAsync(updatedCategory);
+                    TempData[Constants.SuccessMessage] = $"Category \"{updatedCategory.Name}\" has been updated";
                 }
                 catch (DbUpdateConcurrencyException)
                 {

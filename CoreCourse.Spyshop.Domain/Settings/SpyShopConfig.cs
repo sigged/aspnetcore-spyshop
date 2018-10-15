@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CoreCourse.Spyshop.Domain.Settings
+﻿namespace CoreCourse.Spyshop.Domain.Settings
 {
     public class SpyShopConfig
     {
