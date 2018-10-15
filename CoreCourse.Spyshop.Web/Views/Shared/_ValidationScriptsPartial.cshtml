@@ -1,6 +1,42 @@
-﻿<environment names="Production, Staging">
-    <script src="~/bundles/jqueryvalidatebundle.min.js" asp-append-version="true"></script>
+﻿@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment HostingEnvironment
+@using CoreCourse.Spyshop.Web.Globalization
+@{
+    var globalizationService = new GlobalizationService(HostingEnvironment);
+}
+<environment names="Production, Staging">
+    @* cldrjs and globalize.js *@
+    <script src="~/bundles/globalizecldr.min.js"
+            asp-append-version="true"></script>
+
+    @* jquery validation + unobtrusive validation *@
+    <script src="~/bundles/jqueryvalidatebundle.min.js"
+            asp-append-version="true"></script>
 </environment>
 <environment names="Development">
-    <script src="~/bundles/jqueryvalidatebundle.js"></script>
+    @* cldrjs and globalize.js *@
+    <script src="~/bundles/globalizecldr.js"></script>
+
+    @* jquery validation + unobtrusive validation + globalize extensions + own extensions *@
+    <script src="~/bundles/jqueryvalidatebundle.min.js"></script>
 </environment>
+<script type="text/javascript">
+    var culture = "@globalizationService.GetCurrentCldrLocale()";
+    $.when(
+        $.get("/lib/cldr-data/supplemental/likelySubtags.json"),
+        $.get("/lib/cldr-data/main/" + culture + "/numbers.json"),
+        $.get("/lib/cldr-data/supplemental/numberingSystems.json"),
+        $.get("/lib/cldr-data/main/" + culture + "/ca-gregorian.json"),
+        $.get("/lib/cldr-data/main/" + culture + "/timeZoneNames.json"),
+        $.get("/lib/cldr-data/supplemental/timeData.json"),
+        $.get("/lib/cldr-data/supplemental/weekData.json")
+    ).then(function () {
+        // Normalize $.get results, we only need the JSON, not the request statuses.
+        return [].slice.apply(arguments, [0]).map(function (result) {
+            return result[0];
+        });
+    }).then(Globalize.load).then(function () {
+        Globalize.locale(culture); //set Globalize culture
+        //overide dateparse format in jquery-validation-globalize extension
+        $.validator.methods.dateGlobalizeOptions = { dateParseFormat: { raw: "yyyy-MM-dd" } };
+    });
+</script>

@@ -17,7 +17,8 @@
   {
     "inputFiles": [
       "node_modules/jquery-validation/dist/jquery.validate.js",
-      "node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"
+      "node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js",
+      "node_modules/jquery-validation-globalize-fix/jquery.validate.globalize.js"
     ],
     "outputFileName": "wwwroot/bundles/jqueryvalidatebundle.js",
     "minify": {
@@ -26,5 +27,24 @@
     },
     "includeInProject": true,
     "sourceMap": true
+  },
+  // this section bundles globalize.js with cldrjs
+  // see https://github.com/rxaviers/cldrjs#getting-started
+  {
+    "inputFiles": [
+      "node_modules/cldrjs/dist/cldr.js",
+      "node_modules/cldrjs/dist/cldr/event.js",
+      "node_modules/cldrjs/dist/cldr/supplemental.js",
+      "node_modules/globalize/dist/globalize.js",
+      "node_modules/globalize/dist/globalize/number.js",
+      "node_modules/globalize/dist/globalize/date.js" //MUST be loaded after number.js!
+    ],
+    "outputFileName": "wwwroot/bundles/globalizecldr.js",
+    "minify": {
+      "enabled": true,
+      "commentMode": "all"
+    },
+    "sourceMap": true,
+    "includeInProject": true
   }
 ]
