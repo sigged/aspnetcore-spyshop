@@ -15,8 +15,8 @@
 ###############################################################################
 # Linquist Overrides, see https://github.com/github/linguist#overrides
 ###############################################################################
-aspnetcore-spyshop/CoreCourse.Spyshop.Web/wwwroot/bundles/* linguist-generated=true
-aspnetcore-spyshop/CoreCourse.Spyshop.Web/wwwroot/lib/cldr-data/* linguist-vendored=true
+CoreCourse.Spyshop.Web/wwwroot/bundles/* linguist-generated=true
+CoreCourse.Spyshop.Web/wwwroot/lib/cldr-data/* linguist-vendored=true
 
 ###############################################################################
 # Set the merge driver for project and solution files
