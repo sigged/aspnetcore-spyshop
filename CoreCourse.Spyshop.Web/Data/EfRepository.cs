@@ -33,16 +33,20 @@ namespace CoreCourse.Spyshop.Web.Data
             return entity;
         }
 
-        public async Task DeleteAsync(T entity)
+        public async Task<T> DeleteAsync(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
             await _dbContext.SaveChangesAsync();
+
+            return entity; // return deleted entity
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task<T> UpdateAsync(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
+
+            return entity; //return updated entity
         }
     }
 }
