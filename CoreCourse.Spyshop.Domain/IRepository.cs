@@ -21,13 +21,13 @@ namespace CoreCourse.Spyshop.Domain
         Task<T> AddAsync(T entity);
 
         /// <summary>
-        /// Deletes entity of type T from the data store
+        /// Deletes entity of type T from the data store, returns deleted entity as feedback
         /// </summary>
-        Task DeleteAsync(T entity);
+        Task<T> DeleteAsync(T entity);
 
         /// <summary>
-        /// Updates entity of type T from the data store
+        /// Updates entity of type T from the data store, returns updated entity as feedback
         /// </summary>
-        Task UpdateAsync(T entity);
+        Task<T> UpdateAsync(T entity);
     }
 }
